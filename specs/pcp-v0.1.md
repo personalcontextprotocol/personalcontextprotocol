@@ -1,26 +1,68 @@
-# PCP v0.1
+# PCP v0.1 Specification
 
 PCP v0.1 defines a small local-first protocol for scoped access to user-owned
 personal context.
 
-The protocol uses JSON-RPC 2.0 over a single HTTP endpoint. It intentionally
-does not include streaming, OAuth, vector search, LLM calls, or MCP SDK
-dependencies.
+Required protocol version:
 
-Required protocol version: `2026-06-24`.
+```text
+2026-06-24
+```
 
-## Mission
+## Design Goals
 
-A PCP client can:
+- Use JSON-RPC 2.0 for messages.
+- Use one HTTP endpoint for v0.1.
+- Keep protocol schemas separate from server implementation.
+- Make consent and scopes explicit.
+- Preserve provenance, confidence, sensitivity, and freshness on every context item.
+- Write audit logs for meaningful access and mutation.
+- Avoid streaming, OAuth, vector search, LLM calls, and MCP SDK dependencies in v0.1.
 
-1. Initialize and discover capabilities.
-2. Request scoped personal context for a task.
-3. Receive a provenance-rich ContextPack.
-4. Search personal context.
-5. Propose memory updates.
-6. Create memory only when `memory.write` is granted.
-7. Read its own consent grants.
-8. Revoke its own access.
-9. Export context when scope allows it.
-10. Preserve provenance, confidence, sensitivity, and freshness metadata.
-11. Audit every meaningful access or mutation.
+## Required Capabilities
+
+A conforming v0.1 server should support:
+
+- `initialize`
+- `pcp.context.request`
+- `pcp.context.search`
+- `pcp.memory.propose`
+- `pcp.memory.create`
+- `pcp.consent.list`
+- `pcp.consent.revoke`
+- `pcp.export.create`
+
+## Required Core Objects
+
+- `AppClient`
+- `ConsentGrant`
+- `ContextItem`
+- `ContextPack`
+- `MemoryProposal`
+- `AuditLog`
+
+See [objects.md](objects.md).
+
+## Required Security Behavior
+
+- Reject unauthenticated requests.
+- Validate grant status.
+- Validate grant expiration.
+- Validate required scope for each protected method.
+- Exclude restricted context from normal reads and exports.
+- Record audit entries for important access, mutation, denial, and export events.
+
+See [security.md](security.md) and [audit.md](audit.md).
+
+## Reference Implementation Status
+
+This repository implements PCP v0.1 with:
+
+- TypeScript schemas
+- generated JSON Schema
+- Fastify HTTP server
+- SQLite persistence
+- TypeScript client
+- CLI and curl examples
+- tests
+- demo seed data

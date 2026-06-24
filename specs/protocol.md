@@ -1,14 +1,23 @@
-# Protocol
+# Protocol Transport
 
-PCP v0.1 uses JSON-RPC 2.0 request and response envelopes.
+PCP v0.1 uses JSON-RPC 2.0 over HTTP.
 
-## Transport
+## Endpoint
 
-- HTTP `POST /pcp`
-- `Content-Type: application/json`
-- `Authorization: Bearer <token>`
+```text
+POST /pcp
+```
 
-## Request
+## Headers
+
+```text
+Content-Type: application/json
+Authorization: Bearer <token>
+```
+
+Browser requests that include an `Origin` header must use an allowed origin.
+
+## Request Envelope
 
 ```json
 {
@@ -19,7 +28,7 @@ PCP v0.1 uses JSON-RPC 2.0 request and response envelopes.
 }
 ```
 
-## Success
+## Success Envelope
 
 ```json
 {
@@ -29,7 +38,7 @@ PCP v0.1 uses JSON-RPC 2.0 request and response envelopes.
 }
 ```
 
-## Error
+## Error Envelope
 
 ```json
 {
@@ -38,10 +47,39 @@ PCP v0.1 uses JSON-RPC 2.0 request and response envelopes.
   "error": {
     "code": -32001,
     "message": "Consent grant is missing or revoked",
-    "data": {}
+    "data": {
+      "grantId": "grant_demo_codex"
+    }
   }
 }
 ```
 
-PCP uses standard JSON-RPC error codes where appropriate and reserves
-`-32001` through `-32007` for PCP-specific access and validation failures.
+## Standard JSON-RPC Error Codes
+
+- `-32700`: Parse error
+- `-32600`: Invalid request
+- `-32601`: Method not found
+- `-32602`: Invalid params
+- `-32603`: Internal error
+
+## PCP Error Codes
+
+- `-32001`: `PCP_CONSENT_REQUIRED`
+- `-32002`: `PCP_SCOPE_DENIED`
+- `-32003`: `PCP_GRANT_REVOKED`
+- `-32004`: `PCP_GRANT_EXPIRED`
+- `-32005`: `PCP_CONTEXT_NOT_FOUND`
+- `-32006`: `PCP_VALIDATION_FAILED`
+- `-32007`: `PCP_EXPORT_DENIED`
+
+## Version Negotiation
+
+The client sends `protocolVersion` in `initialize`.
+
+For PCP v0.1, the required value is:
+
+```text
+2026-06-24
+```
+
+The server returns the negotiated protocol version and capabilities.

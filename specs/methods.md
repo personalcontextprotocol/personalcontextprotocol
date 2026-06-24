@@ -1,48 +1,329 @@
-# Methods
+# Method Reference
 
-## initialize
+All methods use JSON-RPC 2.0 envelopes. This page documents the `params` and
+`result` payloads.
 
-Negotiates protocol version and returns server capabilities.
+## `initialize`
 
-## pcp.context.request
+Negotiates protocol version and discovers server capabilities.
+
+### Params
+
+```json
+{
+  "protocolVersion": "2026-06-24",
+  "clientInfo": {
+    "id": "codex-local",
+    "name": "Codex Local",
+    "version": "0.1.0",
+    "description": "Local coding assistant",
+    "type": "local_cli"
+  },
+  "capabilities": {
+    "context": {},
+    "memory": {
+      "propose": true
+    }
+  }
+}
+```
+
+### Result
+
+```json
+{
+  "protocolVersion": "2026-06-24",
+  "serverInfo": {
+    "name": "pcp-reference-server",
+    "version": "0.1.0",
+    "description": "Reference PCP server"
+  },
+  "capabilities": {
+    "context": {
+      "request": true,
+      "search": true
+    },
+    "memory": {
+      "propose": true,
+      "create": true
+    },
+    "consent": {
+      "list": true,
+      "revoke": true
+    },
+    "export": {
+      "create": true
+    },
+    "audit": {
+      "enabled": true
+    }
+  },
+  "instructions": "This PCP server provides scoped personal context packs with provenance, confidence, sensitivity, and freshness metadata."
+}
+```
+
+## `pcp.context.request`
 
 Returns a scoped ContextPack for a declared purpose and task.
 
-Requires `context.read`.
+Required scope: `context.read`
 
-## pcp.context.search
+### Params
+
+```json
+{
+  "grantId": "grant_demo_codex",
+  "purpose": "Help the user continue PCP design and implementation",
+  "task": "Implement PCP v0.1 reference server",
+  "contextTypes": ["Project", "DecisionHistory", "MemoryItem"],
+  "maxItems": 20,
+  "freshnessPreference": "recent_first",
+  "includeSources": true,
+  "includeConfidence": true
+}
+```
+
+`freshnessPreference` can be:
+
+- `recent_first`
+- `verified_first`
+- `any`
+
+### Result
+
+```json
+{
+  "contextPack": {
+    "id": "context-pack-id",
+    "userId": "user_demo",
+    "clientId": "codex-local",
+    "grantId": "grant_demo_codex",
+    "purpose": "Help the user continue PCP design and implementation",
+    "generatedAt": "2026-06-24T00:00:00.000Z",
+    "expiresAt": "2026-06-24T01:00:00.000Z",
+    "items": [],
+    "warnings": [],
+    "limits": {
+      "maxItems": 20,
+      "sensitiveItemsExcluded": 0
+    }
+  }
+}
+```
+
+## `pcp.context.search`
 
 Searches context available under the grant.
 
-Requires `context.search`.
+Required scope: `context.search`
 
-## pcp.memory.propose
+### Params
 
-Stores a pending memory proposal.
+```json
+{
+  "grantId": "grant_demo_codex",
+  "query": "PCP protocol design",
+  "contextTypes": ["Project", "DecisionHistory", "MemoryItem"],
+  "limit": 10
+}
+```
 
-Requires `memory.propose`.
+### Result
 
-## pcp.memory.create
+```json
+{
+  "items": [],
+  "total": 0
+}
+```
+
+## `pcp.memory.propose`
+
+Stores a pending memory proposal. This lets a client suggest a memory update
+without directly modifying personal context.
+
+Required scope: `memory.propose`
+
+### Params
+
+```json
+{
+  "grantId": "grant_demo_codex",
+  "proposedItem": {
+    "type": "DecisionHistory",
+    "content": {
+      "text": "The user decided PCP v0.1 should use JSON-RPC over HTTP with scoped ContextPacks, consent grants, and memory proposals."
+    },
+    "tags": ["pcp", "protocol", "decision"],
+    "confidence": 0.9,
+    "sensitivity": "low",
+    "source": {
+      "type": "client_proposal",
+      "origin": "codex-local",
+      "method": "explicit_conversation_summary",
+      "capturedAt": "2026-06-24T00:00:00.000Z"
+    },
+    "freshness": {
+      "lastVerifiedAt": "2026-06-24T00:00:00.000Z",
+      "status": "fresh"
+    }
+  },
+  "reason": "This decision is useful for future PCP implementation continuity."
+}
+```
+
+### Result
+
+```json
+{
+  "proposal": {
+    "id": "proposal-id",
+    "status": "pending",
+    "createdAt": "2026-06-24T00:00:00.000Z"
+  }
+}
+```
+
+## `pcp.memory.create`
 
 Creates a ContextItem directly.
 
-Requires `memory.write`. In the reference server this is limited to demo admin
-credentials.
+Required scope: `memory.write`
 
-## pcp.consent.list
+The reference server allows this only with the demo admin bearer token.
 
-Returns grants belonging to the authenticated client.
+### Params
 
-Requires `consent.read`.
+```json
+{
+  "grantId": "grant_demo_codex",
+  "item": {
+    "type": "MemoryItem",
+    "content": {
+      "text": "A directly created memory."
+    },
+    "tags": ["demo"],
+    "confidence": 0.8,
+    "sensitivity": "low",
+    "source": {
+      "type": "manual_user_entry",
+      "origin": "local-admin",
+      "method": "demo",
+      "capturedAt": "2026-06-24T00:00:00.000Z"
+    },
+    "freshness": {
+      "status": "fresh"
+    }
+  }
+}
+```
 
-## pcp.consent.revoke
+### Result
 
-Revokes a grant owned by the authenticated client.
+```json
+{
+  "item": {
+    "id": "context-item-id",
+    "userId": "user_demo",
+    "type": "MemoryItem",
+    "content": {
+      "text": "A directly created memory."
+    },
+    "tags": ["demo"],
+    "source": {
+      "type": "manual_user_entry",
+      "origin": "local-admin",
+      "method": "demo",
+      "capturedAt": "2026-06-24T00:00:00.000Z"
+    },
+    "confidence": 0.8,
+    "freshness": {
+      "status": "fresh"
+    },
+    "sensitivity": "low",
+    "createdAt": "2026-06-24T00:00:00.000Z",
+    "updatedAt": "2026-06-24T00:00:00.000Z"
+  }
+}
+```
 
-Requires `consent.revoke`.
+## `pcp.consent.list`
 
-## pcp.export.create
+Returns grants for the authenticated client.
+
+Required scope: `consent.read`
+
+### Params
+
+```json
+{
+  "clientId": "codex-local"
+}
+```
+
+### Result
+
+```json
+{
+  "grants": []
+}
+```
+
+## `pcp.consent.revoke`
+
+Revokes a grant.
+
+Required scope: `consent.revoke`
+
+### Params
+
+```json
+{
+  "grantId": "grant_demo_codex"
+}
+```
+
+### Result
+
+```json
+{
+  "grant": {
+    "id": "grant_demo_codex",
+    "status": "revoked"
+  }
+}
+```
+
+The real result includes the full `ConsentGrant`.
+
+## `pcp.export.create`
 
 Exports permitted context as JSON.
 
-Requires `context.export`.
+Required scope: `context.export`
+
+### Params
+
+```json
+{
+  "grantId": "grant_demo_codex",
+  "format": "json",
+  "contextTypes": ["Project", "DecisionHistory"]
+}
+```
+
+### Result
+
+```json
+{
+  "export": {
+    "id": "export-id",
+    "format": "json",
+    "createdAt": "2026-06-24T00:00:00.000Z",
+    "itemCount": 2,
+    "data": {
+      "contextItems": []
+    }
+  }
+}
+```
