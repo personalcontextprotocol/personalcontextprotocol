@@ -1,0 +1,28 @@
+{
+  "name": "@pcp/server",
+  "version": "0.1.0",
+  "description": "PCP v0.1 reference server",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx src/index.ts",
+    "seed": "tsx src/db/seed.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "pnpm --filter @pcp/protocol build && pnpm build && node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "@pcp/protocol": "workspace:*",
+    "fastify": "^5.2.1",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

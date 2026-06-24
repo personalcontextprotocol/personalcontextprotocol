@@ -1,0 +1,25 @@
+{
+  "name": "pcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Personal Context Protocol v0.1 reference implementation",
+  "license": "MIT",
+  "type": "module",
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "build": "pnpm -r build",
+    "dev": "pnpm --filter @pcp/server dev",
+    "test": "pnpm -r test",
+    "typecheck": "pnpm -r typecheck",
+    "generate:schema": "pnpm --filter @pcp/protocol generate:schema",
+    "seed": "pnpm --filter @pcp/server seed",
+    "demo": "pnpm --filter @pcp/demo-client demo"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

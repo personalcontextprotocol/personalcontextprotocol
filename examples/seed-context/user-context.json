@@ -1,0 +1,19 @@
+{
+  "userId": "user_demo",
+  "clientId": "codex-local",
+  "grantId": "grant_demo_codex",
+  "items": [
+    {
+      "type": "Project",
+      "text": "PCP is the Personal Context Protocol: an open protocol for connecting AI systems to user-owned personal context."
+    },
+    {
+      "type": "DecisionHistory",
+      "text": "PCP v0.1 uses JSON-RPC 2.0 over one HTTP endpoint with a small initialization handshake and protocol version negotiation."
+    },
+    {
+      "type": "Preference",
+      "text": "Keep PCP v0.1 small and working: no OAuth, no streaming, no vector database, no LLM dependency, and no MCP SDK internals."
+    }
+  ]
+}
