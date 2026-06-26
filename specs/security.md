@@ -3,7 +3,8 @@
 PCP v0.1 is local-first. The reference implementation is meant for development,
 experimentation, and protocol validation.
 
-It is not a hosted multi-tenant identity system.
+It is not production authentication infrastructure or a hosted multi-tenant
+identity system.
 
 ## Reference Server Controls
 

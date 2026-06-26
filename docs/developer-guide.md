@@ -1,7 +1,10 @@
 # Developer Guide
 
 This guide is for developers who want to understand or extend the PCP v0.1
-reference implementation.
+alpha reference implementation.
+
+PCP v0.1 is an open protocol proposal and runnable reference implementation,
+not a finished standard.
 
 ## Architecture
 
@@ -43,6 +46,12 @@ After editing schemas, regenerate JSON Schema:
 
 ```bash
 pnpm generate:schema
+```
+
+Before submitting a change, verify the checked-in generated schema is current:
+
+```bash
+pnpm check:schema
 ```
 
 The generated file is:
@@ -126,6 +135,26 @@ For v0.1, security is local-first:
 Do not treat the v0.1 reference server as a production hosted multi-tenant auth
 system.
 
+## Audit Inspection
+
+The reference server writes audit entries to the local SQLite database for
+meaningful access, mutation, denial, and export events.
+
+After running the demo, inspect recent audit logs:
+
+```bash
+pnpm audit:logs
+```
+
+Equivalent SQLite query:
+
+```sql
+SELECT timestamp, action, result, client_id, grant_id, scope, resource_id
+FROM audit_logs
+ORDER BY timestamp DESC
+LIMIT 20;
+```
+
 ## Testing
 
 Run all checks:
@@ -134,6 +163,7 @@ Run all checks:
 pnpm typecheck
 pnpm build
 pnpm test
+pnpm check:schema
 ```
 
 Server integration tests use Node's built-in test runner because the server

@@ -1,15 +1,35 @@
 {
   "name": "@pcp/server",
   "version": "0.1.0",
-  "description": "PCP v0.1 reference server",
+  "description": "PCP v0.1 alpha local-first reference server",
   "license": "MIT",
   "type": "module",
+  "author": "PCP maintainers (replace before publication)",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_ORG/pcp.git",
+    "directory": "server"
+  },
+  "homepage": "https://github.com/YOUR_ORG/pcp/tree/main/server",
+  "bugs": {
+    "url": "https://github.com/YOUR_ORG/pcp/issues"
+  },
+  "keywords": [
+    "personal-context",
+    "protocol",
+    "reference-server",
+    "fastify",
+    "sqlite",
+    "consent",
+    "audit"
+  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsx src/index.ts",
     "seed": "tsx src/db/seed.ts",
+    "audit:logs": "tsx src/db/inspectAudit.ts",
     "typecheck": "tsc --noEmit",
     "test": "pnpm --filter @pcp/protocol build && pnpm build && node --test tests/*.test.mjs"
   },
@@ -20,9 +40,9 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
-    "tsup": "^8.3.5",
+    "tsup": "^8.5.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "vitest": "^3.2.6"
   }
 }

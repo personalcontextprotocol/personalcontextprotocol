@@ -1,6 +1,10 @@
 # Getting Started
 
-This guide gets the local PCP reference implementation running on your machine.
+This guide gets the local PCP v0.1 alpha reference implementation running on
+your machine.
+
+The reference server is local-first. It is useful for protocol review,
+development, and demos, but it is not production authentication infrastructure.
 
 ## Requirements
 
@@ -90,6 +94,26 @@ All curl examples use the demo token:
 pcp_demo_token
 ```
 
+## 7. Inspect Audit Logs
+
+The demo writes local audit entries for important reads, writes, denials, and
+exports. After running `pnpm demo`, inspect recent entries:
+
+```bash
+pnpm audit:logs
+```
+
+The command reads the local SQLite database and prints JSON.
+
+You can also inspect the table directly with SQLite tooling:
+
+```sql
+SELECT timestamp, action, result, client_id, grant_id, scope, resource_id
+FROM audit_logs
+ORDER BY timestamp DESC
+LIMIT 20;
+```
+
 ## Where Data Lives
 
 The reference server stores local data in SQLite:
@@ -105,3 +129,9 @@ To start over, stop the server, delete `.pcp/pcp.sqlite`, and run:
 ```bash
 pnpm seed
 ```
+
+## Alpha Limitations
+
+PCP v0.1 does not include OAuth, hosted identity, production token rotation,
+multi-tenant authorization, encryption-at-rest policy, vector search, an LLM, or
+a frontend UI. Those omissions keep the proposal inspectable and local-first.

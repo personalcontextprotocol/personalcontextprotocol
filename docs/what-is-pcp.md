@@ -1,6 +1,7 @@
 # What PCP Is
 
-PCP stands for Personal Context Protocol.
+PCP stands for Personal Context Protocol. PCP v0.1 alpha is an open protocol
+proposal and reference implementation, not a finished standard.
 
 It is a way for an AI application to ask for personal context without taking
 everything, guessing what it is allowed to know, or hiding how the information
@@ -49,3 +50,12 @@ PCP is not a vector database or an LLM framework.
 
 PCP is the protocol layer that lets those systems ask for personal context in a
 structured, consent-aware, auditable way.
+
+## What the Reference Server Is
+
+The v0.1 reference server is local-first. It uses a local SQLite database, a
+demo bearer token, and seeded consent grants so the protocol can be run and
+reviewed.
+
+It is not production authentication, not a hosted identity system, and not a
+claim that v0.1 is complete.
