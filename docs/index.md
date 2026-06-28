@@ -12,6 +12,7 @@ Use this page as the documentation map.
 ## For Developers
 
 - [Developer Guide](developer-guide.md): architecture and extension guide
+- [SDK Guide](sdk/index.md): Rust and TypeScript SDK integration guide
 - [Troubleshooting](troubleshooting.md): common setup and runtime issues
 - [Whitepaper](../paper/pcp-v0.1-whitepaper.md): v0.1 technical narrative and limitations
 - [Method Reference](../specs/methods.md): exact method payloads

@@ -47,7 +47,8 @@
               },
               "required": [
                 "jsonrpc",
-                "id"
+                "id",
+                "result"
               ],
               "additionalProperties": false
             },

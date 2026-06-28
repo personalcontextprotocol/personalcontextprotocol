@@ -14,6 +14,8 @@ packages/protocol
   JSON-RPC envelope types
   PCP-specific error codes
   generated JSON Schema
+  generated v0.1 contract metadata
+  shared conformance fixtures
 
 server
   Fastify HTTP server
@@ -25,8 +27,13 @@ server
   audit logging
 
 client
-  small TypeScript JSON-RPC client
+  TypeScript SDK
   CLI wrapper
+
+sdk/rust/pcp-sdk
+  Rust SDK crate
+  async transport abstraction
+  conformance tests over shared fixtures
 
 examples
   demo client
@@ -54,11 +61,22 @@ Before submitting a change, verify the checked-in generated schema is current:
 pnpm check:schema
 ```
 
-The generated file is:
+The generated files are:
 
 ```text
 packages/protocol/schemas/pcp-v0.1.schema.json
+packages/protocol/schemas/pcp-v0.1.contract.json
 ```
+
+The shared conformance fixtures live in:
+
+```text
+packages/protocol/conformance/v0.1/
+```
+
+SDKs should consume those generated artifacts and fixtures rather than copying
+method names, protocol versions, JSON-RPC versions, or named defaults into
+package-local constants.
 
 ## Server Request Path
 
@@ -96,6 +114,8 @@ audit logging.
 7. Add tests.
 8. Regenerate JSON Schema.
 9. Update `specs/methods.md`.
+10. Add or update shared conformance fixtures.
+11. Update SDK tests if the method surface changes.
 
 ## Local Database
 
@@ -164,6 +184,14 @@ pnpm typecheck
 pnpm build
 pnpm test
 pnpm check:schema
+```
+
+Rust SDK checks:
+
+```bash
+cargo fmt --all -- --check
+cargo build --workspace
+cargo test --workspace
 ```
 
 Server integration tests use Node's built-in test runner because the server

@@ -74,6 +74,25 @@ importers:
         specifier: ^3.2.6
         version: 3.2.6(@types/node@24.13.2)(tsx@4.22.4)
 
+  examples/typescript-sdk:
+    dependencies:
+      '@pcp/client':
+        specifier: workspace:*
+        version: link:../../client
+      '@pcp/protocol':
+        specifier: workspace:*
+        version: link:../../packages/protocol
+    devDependencies:
+      '@types/node':
+        specifier: ^24.0.0
+        version: 24.13.2
+      tsx:
+        specifier: ^4.19.2
+        version: 4.22.4
+      typescript:
+        specifier: ^5.7.2
+        version: 5.9.3
+
   packages/protocol:
     dependencies:
       zod:

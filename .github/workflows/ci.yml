@@ -41,3 +41,28 @@ jobs:
 
       - name: Verify generated schema
         run: pnpm check:schema
+
+      - name: Verify SDK contract drift
+        run: pnpm check:sdk-contracts
+
+  rust-sdk:
+    name: Rust SDK format, build, and test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+
+      - name: Format
+        run: cargo fmt --all -- --check
+
+      - name: Build
+        run: cargo build --workspace
+
+      - name: Test
+        run: cargo test --workspace

@@ -1,0 +1,33 @@
+{
+  "jsonrpc": "2.0",
+  "id": "conformance-initialize-1",
+  "result": {
+    "protocolVersion": "2026-06-24",
+    "serverInfo": {
+      "name": "pcp-reference-server",
+      "version": "0.1.0",
+      "description": "Reference PCP server"
+    },
+    "capabilities": {
+      "context": {
+        "request": true,
+        "search": true
+      },
+      "memory": {
+        "propose": true,
+        "create": true
+      },
+      "consent": {
+        "list": true,
+        "revoke": true
+      },
+      "export": {
+        "create": true
+      },
+      "audit": {
+        "enabled": true
+      }
+    },
+    "instructions": "This PCP server provides scoped personal context packs with provenance, confidence, sensitivity, and freshness metadata."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "conformance-denied-1",
+  "error": {
+    "code": -32002,
+    "message": "Required scope is not granted",
+    "data": {
+      "requiredScope": "memory.write"
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { PCP_DEFAULTS } from "../constants.js";
 import {
   ContextItemSchema,
   ContextTypeSchema,
@@ -19,10 +20,12 @@ export const ContextRequestParamsSchema = z.object({
   purpose: z.string().min(1),
   task: z.string().min(1),
   contextTypes: z.array(ContextTypeSchema).min(1),
-  maxItems: z.number().int().min(1).max(100).default(20),
-  freshnessPreference: FreshnessPreferenceSchema.default("recent_first"),
-  includeSources: z.boolean().default(true),
-  includeConfidence: z.boolean().default(true)
+  maxItems: z.number().int().min(1).max(100).default(PCP_DEFAULTS.contextRequestMaxItems),
+  freshnessPreference: FreshnessPreferenceSchema.default(
+    PCP_DEFAULTS.contextRequestFreshnessPreference
+  ),
+  includeSources: z.boolean().default(PCP_DEFAULTS.contextRequestIncludeSources),
+  includeConfidence: z.boolean().default(PCP_DEFAULTS.contextRequestIncludeConfidence)
 });
 
 export const ContextRequestResultSchema = z.object({
@@ -33,7 +36,7 @@ export const ContextSearchParamsSchema = z.object({
   grantId: z.string().min(1),
   query: z.string().min(1),
   contextTypes: z.array(ContextTypeSchema).optional(),
-  limit: z.number().int().min(1).max(100).default(10)
+  limit: z.number().int().min(1).max(100).default(PCP_DEFAULTS.contextSearchLimit)
 });
 
 export const ContextSearchResultSchema = z.object({
@@ -82,7 +85,7 @@ export const ConsentRevokeResultSchema = z.object({
 
 export const ExportCreateParamsSchema = z.object({
   grantId: z.string().min(1),
-  format: z.literal("json").default("json"),
+  format: z.literal(PCP_DEFAULTS.exportFormat).default(PCP_DEFAULTS.exportFormat),
   contextTypes: z.array(ContextTypeSchema).optional()
 });
 
@@ -99,9 +102,16 @@ export const ExportCreateResultSchema = z.object({
 });
 
 export type ContextRequestParams = z.infer<typeof ContextRequestParamsSchema>;
+export type ContextRequestResult = z.infer<typeof ContextRequestResultSchema>;
 export type ContextSearchParams = z.infer<typeof ContextSearchParamsSchema>;
+export type ContextSearchResult = z.infer<typeof ContextSearchResultSchema>;
 export type MemoryProposeParams = z.infer<typeof MemoryProposeParamsSchema>;
+export type MemoryProposeResult = z.infer<typeof MemoryProposeResultSchema>;
 export type MemoryCreateParams = z.infer<typeof MemoryCreateParamsSchema>;
+export type MemoryCreateResult = z.infer<typeof MemoryCreateResultSchema>;
 export type ConsentListParams = z.infer<typeof ConsentListParamsSchema>;
+export type ConsentListResult = z.infer<typeof ConsentListResultSchema>;
 export type ConsentRevokeParams = z.infer<typeof ConsentRevokeParamsSchema>;
+export type ConsentRevokeResult = z.infer<typeof ConsentRevokeResultSchema>;
 export type ExportCreateParams = z.infer<typeof ExportCreateParamsSchema>;
+export type ExportCreateResult = z.infer<typeof ExportCreateResultSchema>;

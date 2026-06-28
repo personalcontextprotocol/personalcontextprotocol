@@ -36,7 +36,8 @@
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
     "generate:schema": "pnpm --filter @pcp/protocol generate:schema",
-    "check:schema": "pnpm generate:schema && git diff --exit-code -- packages/protocol/schemas/pcp-v0.1.schema.json",
+    "check:schema": "node tools/check-generated-artifacts.mjs",
+    "check:sdk-contracts": "node tools/verify-sdk-contracts.mjs",
     "seed": "pnpm --filter @pcp/server seed",
     "audit:logs": "pnpm --filter @pcp/server audit:logs",
     "demo": "pnpm --filter @pcp/demo-client demo"

@@ -1,0 +1,19 @@
+{
+  "name": "@pcp/typescript-sdk-example",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "demo": "tsx initialize.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@pcp/client": "workspace:*",
+    "@pcp/protocol": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

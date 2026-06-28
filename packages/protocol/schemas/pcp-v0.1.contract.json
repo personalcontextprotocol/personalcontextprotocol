@@ -1,0 +1,41 @@
+{
+  "id": "pcp.v0.1",
+  "protocolVersion": "2026-06-24",
+  "status": "official-v0.1-alpha-contract",
+  "envelope": {
+    "kind": "json-rpc",
+    "jsonrpc": "2.0"
+  },
+  "transport": {
+    "kind": "http-json-rpc",
+    "method": "POST"
+  },
+  "auth": {
+    "requiredByReferenceServer": true,
+    "schemes": [
+      "Bearer"
+    ]
+  },
+  "defaults": {
+    "contextRequestMaxItems": 20,
+    "contextRequestFreshnessPreference": "recent_first",
+    "contextRequestIncludeSources": true,
+    "contextRequestIncludeConfidence": true,
+    "contextSearchLimit": 10,
+    "exportFormat": "json"
+  },
+  "methods": {
+    "initialize": "initialize",
+    "contextRequest": "pcp.context.request",
+    "contextSearch": "pcp.context.search",
+    "memoryPropose": "pcp.memory.propose",
+    "memoryCreate": "pcp.memory.create",
+    "consentList": "pcp.consent.list",
+    "consentRevoke": "pcp.consent.revoke",
+    "exportCreate": "pcp.export.create"
+  },
+  "compatibility": {
+    "line": "v0.1-alpha",
+    "guarantee": "Conforming v0.1 SDKs and servers must reject unknown protocol versions and validate every JSON-RPC params/result object against the v0.1 contract."
+  }
+}

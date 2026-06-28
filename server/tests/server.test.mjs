@@ -1,10 +1,24 @@
-import { mkdtempSync } from "node:fs";
+import { mkdtempSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { PCP_PROTOCOL_VERSION } from "@pcp/protocol";
+import {
+  JSON_RPC_VERSION,
+  PCP_BEARER_AUTH_SCHEME,
+  PCP_DEFAULTS,
+  PCP_HTTP_JSON_RPC_METHOD,
+  PCP_PROTOCOL_VERSION
+} from "@pcp/protocol";
 import { createServer, seedDatabase } from "../dist/reference.js";
+
+const testDir = dirname(fileURLToPath(import.meta.url));
+const fixtureRoot = resolve(testDir, "../../packages/protocol/conformance/v0.1");
+
+function readFixture(path) {
+  return JSON.parse(readFileSync(resolve(fixtureRoot, path), "utf8"));
+}
 
 function testConfig() {
   const dir = mkdtempSync(join(tmpdir(), "pcp-server-test-"));
@@ -19,19 +33,23 @@ function testConfig() {
 }
 
 async function rpc(app, method, params) {
+  return injectRpcPayload(app, {
+    jsonrpc: JSON_RPC_VERSION,
+    id: "1",
+    method,
+    params
+  });
+}
+
+async function injectRpcPayload(app, payload) {
   const response = await app.inject({
-    method: "POST",
+    method: PCP_HTTP_JSON_RPC_METHOD,
     url: "/pcp",
     headers: {
-      authorization: "Bearer pcp_demo_token",
+      authorization: `${PCP_BEARER_AUTH_SCHEME} pcp_demo_token`,
       "content-type": "application/json"
     },
-    payload: {
-      jsonrpc: "2.0",
-      id: "1",
-      method,
-      params
-    }
+    payload
   });
 
   assert.equal(response.statusCode, 200);
@@ -39,6 +57,52 @@ async function rpc(app, method, params) {
 }
 
 describe("PCP reference server", () => {
+  it("accepts the shared initialize conformance fixture", async () => {
+    const config = testConfig();
+    seedDatabase(config.databasePath);
+    const app = createServer(config);
+
+    const initialize = await injectRpcPayload(
+      app,
+      readFixture("valid/initialize.request.json")
+    );
+
+    assert.equal(initialize.result.protocolVersion, PCP_PROTOCOL_VERSION);
+    await app.close();
+  });
+
+  it("applies named defaults from the shared context request fixture", async () => {
+    const config = testConfig();
+    seedDatabase(config.databasePath);
+    const app = createServer(config);
+
+    const context = await injectRpcPayload(
+      app,
+      readFixture("valid/context-request.request.json")
+    );
+
+    assert.equal(
+      context.result.contextPack.limits.maxItems,
+      PCP_DEFAULTS.contextRequestMaxItems
+    );
+    assert.ok(context.result.contextPack.items.length > 0);
+    await app.close();
+  });
+
+  it("rejects the shared unsupported protocol version fixture", async () => {
+    const config = testConfig();
+    seedDatabase(config.databasePath);
+    const app = createServer(config);
+
+    const response = await injectRpcPayload(
+      app,
+      readFixture("invalid/unsupported-version.request.json")
+    );
+
+    assert.equal(response.error.code, -32602);
+    await app.close();
+  });
+
   it("serves initialize, context, search, proposal, consent, and export flows", async () => {
     const config = testConfig();
     seedDatabase(config.databasePath);

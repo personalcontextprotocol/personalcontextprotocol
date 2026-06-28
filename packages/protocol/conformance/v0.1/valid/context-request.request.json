@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "conformance-context-request-1",
+  "method": "pcp.context.request",
+  "params": {
+    "grantId": "grant_demo_codex",
+    "purpose": "Exercise PCP v0.1 context request conformance",
+    "task": "Request scoped project context",
+    "contextTypes": ["Project", "DecisionHistory"]
+  }
+}

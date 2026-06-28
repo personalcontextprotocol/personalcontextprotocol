@@ -15,10 +15,11 @@ user-owned personal context.
 
 This repository contains a runnable PCP v0.1 alpha reference implementation:
 
-- `packages/protocol`: TypeScript/Zod schemas, JSON-RPC types, PCP errors, and generated JSON Schema.
+- `packages/protocol`: TypeScript/Zod schemas, JSON-RPC types, PCP errors, generated JSON Schema, generated contract metadata, and conformance fixtures.
 - `server`: Local-first Fastify reference server with SQLite persistence.
-- `client`: Small TypeScript client and CLI.
-- `examples`: Seed data, curl requests, and a runnable demo client.
+- `client`: TypeScript SDK and CLI.
+- `sdk/rust/pcp-sdk`: Rust SDK crate.
+- `examples`: Seed data, curl requests, a runnable demo client, and SDK examples.
 - `specs`: Protocol reference for implementers.
 - `docs`: Plain-language guides for new users and developers.
 - `paper`: Whitepaper draft for technical review.
@@ -49,9 +50,10 @@ If you are not a protocol expert, start here:
 If you are building an implementation:
 
 1. [Developer Guide](docs/developer-guide.md)
-2. [Method Reference](specs/methods.md)
-3. [Object Reference](specs/objects.md)
-4. [Security Model](specs/security.md)
+2. [SDK Guide](docs/sdk/index.md)
+3. [Method Reference](specs/methods.md)
+4. [Object Reference](specs/objects.md)
+5. [Security Model](specs/security.md)
 
 ## Quick Start
 
@@ -215,15 +217,24 @@ pnpm demo             # run the demo client
 pnpm audit:logs       # inspect recent local audit log entries
 ```
 
+Rust SDK checks require a Rust toolchain:
+
+```bash
+cargo fmt --all -- --check
+cargo build --workspace
+cargo test --workspace
+```
+
 ## Repository Map
 
 ```text
-packages/protocol/   Protocol source of truth
+packages/protocol/   Protocol source of truth, generated artifacts, conformance fixtures
 server/              Reference server
-client/              Reference client and CLI
-examples/            Demo client, curl scripts, seed context
+client/              TypeScript SDK and CLI
+sdk/rust/pcp-sdk/    Rust SDK crate
+examples/            Demo client, curl scripts, seed context, SDK examples
 specs/               Implementer-facing protocol reference
-docs/                Plain-language and developer guides
+docs/                Plain-language, developer, and SDK guides
 paper/               PCP v0.1 whitepaper draft
 ```
 
@@ -234,6 +245,7 @@ paper/               PCP v0.1 whitepaper draft
 - [How PCP Works](docs/how-it-works.md)
 - [Glossary](docs/glossary.md)
 - [Developer Guide](docs/developer-guide.md)
+- [SDK Guide](docs/sdk/index.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Whitepaper](paper/pcp-v0.1-whitepaper.md)
 - [Protocol Spec](specs/pcp-v0.1.md)

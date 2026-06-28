@@ -1,0 +1,21 @@
+{
+  "jsonrpc": "2.0",
+  "id": "conformance-initialize-1",
+  "method": "initialize",
+  "params": {
+    "protocolVersion": "2026-06-24",
+    "clientInfo": {
+      "id": "pcp-conformance-client",
+      "name": "PCP Conformance Client",
+      "version": "0.1.0",
+      "description": "Shared PCP v0.1 conformance fixture",
+      "type": "local_cli"
+    },
+    "capabilities": {
+      "context": {},
+      "memory": {
+        "propose": true
+      }
+    }
+  }
+}

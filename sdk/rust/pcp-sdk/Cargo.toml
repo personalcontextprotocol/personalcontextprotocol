@@ -1,0 +1,20 @@
+[package]
+name = "pcp-sdk"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Rust SDK for the Personal Context Protocol v0.1 alpha contract"
+repository = "https://github.com/YOUR_ORG/pcp"
+homepage = "https://github.com/YOUR_ORG/pcp/tree/main/sdk/rust/pcp-sdk"
+readme = "README.md"
+keywords = ["pcp", "personal-context", "protocol", "json-rpc"]
+categories = ["api-bindings"]
+publish = false
+
+[dependencies]
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt"] }

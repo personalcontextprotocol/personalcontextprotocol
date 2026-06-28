@@ -1,18 +1,22 @@
 import { z } from "zod";
+import { JSON_RPC_VERSION } from "./constants.js";
 
 export const JsonRpcIdSchema = z.union([z.string(), z.number(), z.null()]);
+export const JsonRpcResultSchema = z
+  .unknown()
+  .refine((value) => value !== undefined, "JSON-RPC success responses require result");
 
 export const JsonRpcRequestSchema = z.object({
-  jsonrpc: z.literal("2.0"),
+  jsonrpc: z.literal(JSON_RPC_VERSION),
   id: JsonRpcIdSchema,
   method: z.string().min(1),
   params: z.unknown().optional()
 });
 
 export const JsonRpcSuccessResponseSchema = z.object({
-  jsonrpc: z.literal("2.0"),
+  jsonrpc: z.literal(JSON_RPC_VERSION),
   id: JsonRpcIdSchema,
-  result: z.unknown()
+  result: JsonRpcResultSchema
 });
 
 export const JsonRpcErrorObjectSchema = z.object({
@@ -22,7 +26,7 @@ export const JsonRpcErrorObjectSchema = z.object({
 });
 
 export const JsonRpcErrorResponseSchema = z.object({
-  jsonrpc: z.literal("2.0"),
+  jsonrpc: z.literal(JSON_RPC_VERSION),
   id: JsonRpcIdSchema,
   error: JsonRpcErrorObjectSchema
 });
@@ -33,16 +37,34 @@ export const JsonRpcResponseSchema = z.union([
 ]);
 
 export type JsonRpcId = z.infer<typeof JsonRpcIdSchema>;
-export type JsonRpcRequest = z.infer<typeof JsonRpcRequestSchema>;
-export type JsonRpcSuccessResponse = z.infer<typeof JsonRpcSuccessResponseSchema>;
-export type JsonRpcErrorResponse = z.infer<typeof JsonRpcErrorResponseSchema>;
-export type JsonRpcResponse = z.infer<typeof JsonRpcResponseSchema>;
+export type JsonRpcRequest = {
+  jsonrpc: typeof JSON_RPC_VERSION;
+  id: JsonRpcId;
+  method: string;
+  params?: unknown;
+};
+export type JsonRpcErrorObject = {
+  code: number;
+  message: string;
+  data?: unknown;
+};
+export type JsonRpcSuccessResponse = {
+  jsonrpc: typeof JSON_RPC_VERSION;
+  id: JsonRpcId;
+  result: unknown;
+};
+export type JsonRpcErrorResponse = {
+  jsonrpc: typeof JSON_RPC_VERSION;
+  id: JsonRpcId;
+  error: JsonRpcErrorObject;
+};
+export type JsonRpcResponse = JsonRpcSuccessResponse | JsonRpcErrorResponse;
 
 export function successResponse(
   id: JsonRpcId,
   result: unknown
 ): JsonRpcSuccessResponse {
-  return { jsonrpc: "2.0", id, result };
+  return { jsonrpc: JSON_RPC_VERSION, id, result };
 }
 
 export function errorResponse(
@@ -52,7 +74,7 @@ export function errorResponse(
   data?: unknown
 ): JsonRpcErrorResponse {
   return {
-    jsonrpc: "2.0",
+    jsonrpc: JSON_RPC_VERSION,
     id,
     error: data === undefined ? { code, message } : { code, message, data }
   };
