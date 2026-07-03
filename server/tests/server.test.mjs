@@ -162,8 +162,41 @@ describe("PCP reference server", () => {
     });
     assert.equal(proposal.result.proposal.status, "pending");
 
+    const created = await rpc(app, "pcp.memory.create", {
+      grantId: "grant_demo_codex",
+      item: {
+        type: "MemoryItem",
+        content: { text: "Temporary memory for delete verification." },
+        tags: ["test", "pcp", "delete"],
+        source: {
+          type: "client_proposal",
+          origin: "server-test",
+          method: "node-test",
+          capturedAt: new Date().toISOString()
+        },
+        confidence: 0.9,
+        freshness: { status: "fresh" },
+        sensitivity: "low"
+      }
+    });
+    assert.ok(created.result.item.id);
+
+    const deleted = await rpc(app, "pcp.memory.delete", {
+      grantId: "grant_demo_codex",
+      itemId: created.result.item.id
+    });
+    assert.equal(deleted.result.item.id, created.result.item.id);
+
     const consent = await rpc(app, "pcp.consent.list", { clientId: "codex-local" });
     assert.equal(consent.result.grants.length, 1);
+
+    const audit = await rpc(app, "pcp.audit.list", {
+      grantId: "grant_demo_codex",
+      actions: ["context.requested", "context.searched"],
+      limit: 10
+    });
+    assert.ok(audit.result.total >= 2);
+    assert.ok(audit.result.logs.length >= 2);
 
     const exported = await rpc(app, "pcp.export.create", {
       grantId: "grant_demo_codex",

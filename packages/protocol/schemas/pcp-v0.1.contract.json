@@ -30,8 +30,10 @@
     "contextSearch": "pcp.context.search",
     "memoryPropose": "pcp.memory.propose",
     "memoryCreate": "pcp.memory.create",
+    "memoryDelete": "pcp.memory.delete",
     "consentList": "pcp.consent.list",
     "consentRevoke": "pcp.consent.revoke",
+    "auditList": "pcp.audit.list",
     "exportCreate": "pcp.export.create"
   },
   "compatibility": {

@@ -22,7 +22,9 @@ import { handleContextSearch } from "./handlers/contextSearch.js";
 import { handleExportCreate } from "./handlers/exportCreate.js";
 import { handleInitialize } from "./handlers/initialize.js";
 import { handleMemoryCreate } from "./handlers/memoryCreate.js";
+import { handleMemoryDelete } from "./handlers/memoryDelete.js";
 import { handleMemoryPropose } from "./handlers/memoryPropose.js";
+import { handleAuditList } from "./handlers/auditList.js";
 
 export type DispatchContext = {
   config: ServerConfig;
@@ -81,6 +83,17 @@ export async function dispatchJsonRpc(
             request.params
           )
         );
+      case PCP_METHODS.memoryDelete:
+        return successResponse(
+          request.id,
+          handleMemoryDelete(
+            context.auth,
+            consentService,
+            memoryService,
+            auditService,
+            request.params
+          )
+        );
       case PCP_METHODS.consentList:
         return successResponse(
           request.id,
@@ -90,6 +103,11 @@ export async function dispatchJsonRpc(
         return successResponse(
           request.id,
           handleConsentRevoke(consentService, auditService, request.params)
+        );
+      case PCP_METHODS.auditList:
+        return successResponse(
+          request.id,
+          handleAuditList(consentService, auditService, request.params)
         );
       case PCP_METHODS.exportCreate:
         return successResponse(

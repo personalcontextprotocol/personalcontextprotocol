@@ -22,6 +22,7 @@ export const demoGrant: ConsentGrant = {
     "memory.write",
     "consent.read",
     "consent.revoke",
+    "context.audit.read",
     "context.export"
   ],
   purpose: "Allow the local Codex client to help build PCP v0.1.",

@@ -1,6 +1,11 @@
 import { z } from "zod";
 import { PCP_DEFAULTS } from "../constants.js";
 import {
+  AuditActionSchema,
+  AuditLogSchema,
+  AuditResultSchema
+} from "./audit-log.js";
+import {
   ContextItemSchema,
   ContextTypeSchema,
   NewContextItemSchema
@@ -67,6 +72,15 @@ export const MemoryCreateResultSchema = z.object({
   item: ContextItemSchema
 });
 
+export const MemoryDeleteParamsSchema = z.object({
+  grantId: z.string().min(1),
+  itemId: z.string().min(1)
+});
+
+export const MemoryDeleteResultSchema = z.object({
+  item: ContextItemSchema
+});
+
 export const ConsentListParamsSchema = z.object({
   clientId: z.string().min(1).optional()
 });
@@ -81,6 +95,22 @@ export const ConsentRevokeParamsSchema = z.object({
 
 export const ConsentRevokeResultSchema = z.object({
   grant: ConsentGrantSchema
+});
+
+export const AuditListParamsSchema = z.object({
+  grantId: z.string().min(1),
+  clientId: z.string().min(1).optional(),
+  actions: z.array(AuditActionSchema).optional(),
+  results: z.array(AuditResultSchema).optional(),
+  resourceId: z.string().min(1).optional(),
+  since: z.string().datetime({ offset: true }).optional(),
+  until: z.string().datetime({ offset: true }).optional(),
+  limit: z.number().int().min(1).max(500).default(100)
+});
+
+export const AuditListResultSchema = z.object({
+  logs: z.array(AuditLogSchema),
+  total: z.number().int().min(0)
 });
 
 export const ExportCreateParamsSchema = z.object({
@@ -109,9 +139,13 @@ export type MemoryProposeParams = z.infer<typeof MemoryProposeParamsSchema>;
 export type MemoryProposeResult = z.infer<typeof MemoryProposeResultSchema>;
 export type MemoryCreateParams = z.infer<typeof MemoryCreateParamsSchema>;
 export type MemoryCreateResult = z.infer<typeof MemoryCreateResultSchema>;
+export type MemoryDeleteParams = z.infer<typeof MemoryDeleteParamsSchema>;
+export type MemoryDeleteResult = z.infer<typeof MemoryDeleteResultSchema>;
 export type ConsentListParams = z.infer<typeof ConsentListParamsSchema>;
 export type ConsentListResult = z.infer<typeof ConsentListResultSchema>;
 export type ConsentRevokeParams = z.infer<typeof ConsentRevokeParamsSchema>;
 export type ConsentRevokeResult = z.infer<typeof ConsentRevokeResultSchema>;
+export type AuditListParams = z.infer<typeof AuditListParamsSchema>;
+export type AuditListResult = z.infer<typeof AuditListResultSchema>;
 export type ExportCreateParams = z.infer<typeof ExportCreateParamsSchema>;
 export type ExportCreateResult = z.infer<typeof ExportCreateResultSchema>;

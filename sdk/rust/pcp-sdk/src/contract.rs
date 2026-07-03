@@ -61,8 +61,10 @@ pub struct ContractMethods {
     pub context_search: String,
     pub memory_propose: String,
     pub memory_create: String,
+    pub memory_delete: String,
     pub consent_list: String,
     pub consent_revoke: String,
+    pub audit_list: String,
     pub export_create: String,
 }
 
@@ -79,8 +81,10 @@ pub enum PcpMethod {
     ContextSearch,
     MemoryPropose,
     MemoryCreate,
+    MemoryDelete,
     ConsentList,
     ConsentRevoke,
+    AuditList,
     ExportCreate,
 }
 
@@ -107,8 +111,10 @@ pub fn method_name(method: PcpMethod) -> Result<&'static str> {
         PcpMethod::ContextSearch => &methods.context_search,
         PcpMethod::MemoryPropose => &methods.memory_propose,
         PcpMethod::MemoryCreate => &methods.memory_create,
+        PcpMethod::MemoryDelete => &methods.memory_delete,
         PcpMethod::ConsentList => &methods.consent_list,
         PcpMethod::ConsentRevoke => &methods.consent_revoke,
+        PcpMethod::AuditList => &methods.audit_list,
         PcpMethod::ExportCreate => &methods.export_create,
     })
 }

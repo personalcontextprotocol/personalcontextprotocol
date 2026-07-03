@@ -15,6 +15,8 @@ import {
 } from "./schemas/initialize.js";
 import { MemoryProposalSchema } from "./schemas/memory-proposal.js";
 import {
+  AuditListParamsSchema,
+  AuditListResultSchema,
   ConsentListParamsSchema,
   ConsentListResultSchema,
   ConsentRevokeParamsSchema,
@@ -27,6 +29,8 @@ import {
   ExportCreateResultSchema,
   MemoryCreateParamsSchema,
   MemoryCreateResultSchema,
+  MemoryDeleteParamsSchema,
+  MemoryDeleteResultSchema,
   MemoryProposeParamsSchema,
   MemoryProposeResultSchema
 } from "./schemas/methods.js";
@@ -63,6 +67,10 @@ const PcpV01Schema = z.object({
       params: MemoryCreateParamsSchema,
       result: MemoryCreateResultSchema
     }),
+    memoryDelete: z.object({
+      params: MemoryDeleteParamsSchema,
+      result: MemoryDeleteResultSchema
+    }),
     consentList: z.object({
       params: ConsentListParamsSchema,
       result: ConsentListResultSchema
@@ -70,6 +78,10 @@ const PcpV01Schema = z.object({
     consentRevoke: z.object({
       params: ConsentRevokeParamsSchema,
       result: ConsentRevokeResultSchema
+    }),
+    auditList: z.object({
+      params: AuditListParamsSchema,
+      result: AuditListResultSchema
     }),
     exportCreate: z.object({
       params: ExportCreateParamsSchema,
@@ -115,8 +127,10 @@ pub const PCP_METHOD_CONTEXT_REQUEST: &str = "${methods.contextRequest}";
 pub const PCP_METHOD_CONTEXT_SEARCH: &str = "${methods.contextSearch}";
 pub const PCP_METHOD_MEMORY_PROPOSE: &str = "${methods.memoryPropose}";
 pub const PCP_METHOD_MEMORY_CREATE: &str = "${methods.memoryCreate}";
+pub const PCP_METHOD_MEMORY_DELETE: &str = "${methods.memoryDelete}";
 pub const PCP_METHOD_CONSENT_LIST: &str = "${methods.consentList}";
 pub const PCP_METHOD_CONSENT_REVOKE: &str = "${methods.consentRevoke}";
+pub const PCP_METHOD_AUDIT_LIST: &str = "${methods.auditList}";
 pub const PCP_METHOD_EXPORT_CREATE: &str = "${methods.exportCreate}";
 `;
 }
