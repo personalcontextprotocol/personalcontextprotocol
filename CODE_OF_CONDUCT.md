@@ -25,10 +25,11 @@ The project expects contributors to keep that work professional and focused.
 Maintainers may edit, hide, or remove comments; close issues or pull requests;
 or restrict participation when behavior conflicts with this code.
 
-Until final project contacts are published, conduct concerns can be sent to:
+Conduct concerns can be raised through the repository owner profile or by
+opening a GitHub issue that does not include private personal information.
+Security-sensitive conduct concerns should use the private vulnerability
+reporting path in [SECURITY.md](SECURITY.md).
 
 ```text
-conduct@example.com
+https://github.com/gitxpress
 ```
-
-Replace this placeholder before public launch.

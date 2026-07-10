@@ -247,6 +247,52 @@ The reference server allows this only with the demo admin bearer token.
 }
 ```
 
+## `pcp.memory.delete`
+
+Deletes an existing ContextItem.
+
+Required scope: `memory.write`
+
+The reference server allows this only with the demo admin bearer token.
+
+### Params
+
+```json
+{
+  "grantId": "grant_demo_codex",
+  "itemId": "context-item-id"
+}
+```
+
+### Result
+
+```json
+{
+  "item": {
+    "id": "context-item-id",
+    "userId": "user_demo",
+    "type": "MemoryItem",
+    "content": {
+      "text": "A directly created memory."
+    },
+    "tags": ["demo"],
+    "source": {
+      "type": "manual_user_entry",
+      "origin": "local-admin",
+      "method": "demo",
+      "capturedAt": "2026-06-24T00:00:00.000Z"
+    },
+    "confidence": 0.8,
+    "freshness": {
+      "status": "fresh"
+    },
+    "sensitivity": "low",
+    "createdAt": "2026-06-24T00:00:00.000Z",
+    "updatedAt": "2026-06-24T00:00:00.000Z"
+  }
+}
+```
+
 ## `pcp.consent.list`
 
 Returns grants for the authenticated client.
@@ -295,6 +341,38 @@ Required scope: `consent.revoke`
 ```
 
 The real result includes the full `ConsentGrant`.
+
+## `pcp.audit.list`
+
+Lists audit entries visible under a grant.
+
+Required scope: `context.audit.read`
+
+### Params
+
+```json
+{
+  "grantId": "grant_demo_codex",
+  "clientId": "codex-local",
+  "actions": ["context.requested", "context.searched"],
+  "results": ["success"],
+  "resourceId": "context-pack-id",
+  "since": "2026-06-24T00:00:00.000Z",
+  "until": "2026-06-25T00:00:00.000Z",
+  "limit": 100
+}
+```
+
+All filters except `grantId` are optional. The default `limit` is `100`.
+
+### Result
+
+```json
+{
+  "logs": [],
+  "total": 0
+}
+```
 
 ## `pcp.export.create`
 

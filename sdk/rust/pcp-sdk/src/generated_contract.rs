@@ -6,6 +6,10 @@ pub const PCP_PROTOCOL_VERSION: &str = "2026-06-24";
 pub const PCP_JSON_RPC_VERSION: &str = "2.0";
 pub const PCP_HTTP_JSON_RPC_METHOD: &str = "POST";
 pub const PCP_BEARER_AUTH_SCHEME: &str = "Bearer";
+pub const PCP_SERVER_INFO_NAME: &str = "pcp-reference-server";
+pub const PCP_SERVER_INFO_VERSION: &str = "0.1.0";
+pub const PCP_SERVER_INFO_DESCRIPTION: &str = "Reference PCP server";
+pub const PCP_SERVER_INSTRUCTIONS: &str = "This PCP server provides scoped personal context packs with provenance, confidence, sensitivity, and freshness metadata.";
 
 pub const PCP_METHOD_INITIALIZE: &str = "initialize";
 pub const PCP_METHOD_CONTEXT_REQUEST: &str = "pcp.context.request";

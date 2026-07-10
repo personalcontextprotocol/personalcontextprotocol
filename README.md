@@ -108,8 +108,10 @@ A PCP client can:
 - search personal context
 - propose a memory update
 - create memory only when `memory.write` is granted
+- delete memory only when `memory.write` is granted
 - read its own consent grants
 - revoke its own access
+- list scoped audit entries
 - export context as JSON
 - preserve provenance, confidence, sensitivity, and freshness metadata
 - write audit logs for meaningful reads, writes, denials, and exports
@@ -205,16 +207,18 @@ LIMIT 20;
 ## Main Commands
 
 ```bash
-pnpm install          # install workspace dependencies
-pnpm build            # build protocol, server, client, and demo
-pnpm test             # run protocol, client, and server tests
-pnpm typecheck        # typecheck all packages
-pnpm generate:schema  # regenerate JSON Schema from Zod schemas
-pnpm check:schema     # verify generated JSON Schema is up to date
-pnpm seed             # seed the local SQLite demo database
-pnpm dev              # start the reference server
-pnpm demo             # run the demo client
-pnpm audit:logs       # inspect recent local audit log entries
+pnpm install             # install workspace dependencies
+pnpm build               # build protocol, server, client, and demo
+pnpm test                # run protocol, client, and server tests
+pnpm typecheck           # typecheck all packages
+pnpm check:release       # run the Node-side public-release gate
+pnpm generate:schema     # regenerate JSON Schema from Zod schemas
+pnpm check:schema        # verify generated JSON Schema is up to date
+pnpm check:sdk-contracts # verify generated contract and SDK drift
+pnpm seed                # seed the local SQLite demo database
+pnpm dev                 # start the reference server
+pnpm demo                # run the demo client
+pnpm audit:logs          # inspect recent local audit log entries
 ```
 
 Rust SDK checks require a Rust toolchain:
@@ -224,6 +228,13 @@ cargo fmt --all -- --check
 cargo build --workspace
 cargo test --workspace
 ```
+
+## Agent Workflow
+
+Future coding agents should follow [AGENTS.md](AGENTS.md). In short: keep PCP
+contract-first, keep TypeScript and Rust SDKs aligned to the canonical v0.1
+alpha contract, preserve consent/provenance/audit boundaries, and run the
+release checks before calling changes ready.
 
 ## Repository Map
 

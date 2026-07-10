@@ -32,6 +32,7 @@ pnpm typecheck
 pnpm build
 pnpm test
 pnpm check:schema
+pnpm check:sdk-contracts
 ```
 
 ## Demo Path
@@ -62,11 +63,27 @@ pnpm check:schema
 
 Commit generated schema changes with the source changes.
 
+## Contract and SDK Drift
+
+PCP keeps one canonical contract and verifies generated artifacts and SDK
+constants against it. Before claiming a protocol, SDK, or reference server
+change is ready, run:
+
+```bash
+pnpm check:release
+cargo fmt --all -- --check
+cargo build --workspace
+cargo test --workspace
+```
+
+`pnpm check:release` runs the Node-side typecheck, build, tests, generated
+schema check, and SDK contract drift check.
+
 ## Pull Requests
 
 Before opening a pull request:
 
-- run typecheck, build, tests, and schema check
+- run typecheck, build, tests, schema check, SDK drift check, and Rust checks
 - update specs or docs when behavior changes
 - keep protocol claims precise
 - call out any security or privacy implications

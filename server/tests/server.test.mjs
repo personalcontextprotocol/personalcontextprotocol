@@ -103,7 +103,7 @@ describe("PCP reference server", () => {
     await app.close();
   });
 
-  it("serves initialize, context, search, proposal, consent, and export flows", async () => {
+  it("serves initialize, context, search, memory, consent, audit, and export flows", async () => {
     const config = testConfig();
     seedDatabase(config.databasePath);
     const app = createServer(config);

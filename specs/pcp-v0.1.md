@@ -52,8 +52,10 @@ A conforming v0.1 server should support:
 - `pcp.context.search`
 - `pcp.memory.propose`
 - `pcp.memory.create`
+- `pcp.memory.delete`
 - `pcp.consent.list`
 - `pcp.consent.revoke`
+- `pcp.audit.list`
 - `pcp.export.create`
 
 ## Required Core Objects

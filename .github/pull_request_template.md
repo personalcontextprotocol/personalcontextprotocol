@@ -15,6 +15,10 @@
 - [ ] `pnpm build`
 - [ ] `pnpm test`
 - [ ] `pnpm check:schema`
+- [ ] `pnpm check:sdk-contracts`
+- [ ] `cargo fmt --all -- --check`
+- [ ] `cargo build --workspace`
+- [ ] `cargo test --workspace`
 
 ## Security, Privacy, and Consent Notes
 

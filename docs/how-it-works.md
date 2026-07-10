@@ -28,6 +28,7 @@ Example scopes:
 
 - `context.read`
 - `context.search`
+- `context.audit.read`
 - `memory.propose`
 - `memory.write`
 - `consent.read`
@@ -93,7 +94,19 @@ server -> stores proposal as pending
 ```
 
 Direct memory creation exists in v0.1, but it requires `memory.write` and is
-limited in the reference server to the demo admin token.
+limited in the reference server to the demo admin token. Direct memory deletion
+uses the same scope and local demo-admin restriction.
+
+## Audit Flow
+
+Audit listing requires `context.audit.read`.
+
+```text
+client -> pcp.audit.list
+server -> checks auth, grant status, and audit-read scope
+server -> returns matching audit entries
+server -> writes an audit.listed entry
+```
 
 ## Export Flow
 

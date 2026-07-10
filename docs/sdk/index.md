@@ -87,7 +87,7 @@ cargo test -p pcp-sdk
 The crate includes:
 
 - typed protocol models
-- async client methods for all v0.1 methods
+- async client methods for all v0.1 methods, including memory deletion and audit listing
 - ready JSON-RPC-over-HTTP transport
 - structured protocol and transport errors
 - generated contract and schema inclusion

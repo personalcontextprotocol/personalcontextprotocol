@@ -18,13 +18,17 @@ basic origin checks so implementers can inspect the protocol behavior.
 
 Do not open a public issue for a suspected vulnerability.
 
-Until a final project security contact is published, report privately to:
+Use GitHub's private vulnerability reporting path for this repository:
 
 ```text
-security@example.com
+https://github.com/gitxpress/pcp/security/advisories/new
 ```
 
-Replace this placeholder before public launch. Include:
+If GitHub does not show the private reporting form, contact the maintainers
+through the repository owner profile without including exploit details in a
+public issue.
+
+Include:
 
 - affected package or component
 - steps to reproduce

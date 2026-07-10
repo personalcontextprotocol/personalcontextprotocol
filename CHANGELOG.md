@@ -13,7 +13,7 @@ numbers for release tags where practical.
 - TypeScript/Zod protocol schemas and generated JSON Schema.
 - Local-first Fastify reference server with SQLite persistence.
 - TypeScript client and runnable demo client.
-- Consent grants, scoped context requests, ContextPacks, memory proposals, exports, and audit logs.
+- Consent grants, scoped context requests, ContextPacks, memory proposals, direct memory writes/deletes, scoped audit listing, exports, and audit logs.
 - Public alpha governance files, GitHub templates, and CI workflow.
 - Whitepaper draft for v0.1 review.
 

@@ -24,6 +24,14 @@
     "contextSearchLimit": 10,
     "exportFormat": "json"
   },
+  "referenceServer": {
+    "info": {
+      "name": "pcp-reference-server",
+      "version": "0.1.0",
+      "description": "Reference PCP server"
+    },
+    "instructions": "This PCP server provides scoped personal context packs with provenance, confidence, sensitivity, and freshness metadata."
+  },
   "methods": {
     "initialize": "initialize",
     "contextRequest": "pcp.context.request",

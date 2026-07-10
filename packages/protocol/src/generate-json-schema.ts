@@ -121,6 +121,10 @@ pub const PCP_PROTOCOL_VERSION: &str = "${PCP_CONTRACT.protocolVersion}";
 pub const PCP_JSON_RPC_VERSION: &str = "${PCP_CONTRACT.envelope.jsonrpc}";
 pub const PCP_HTTP_JSON_RPC_METHOD: &str = "${PCP_CONTRACT.transport.method}";
 pub const PCP_BEARER_AUTH_SCHEME: &str = "${authScheme}";
+pub const PCP_SERVER_INFO_NAME: &str = "${PCP_CONTRACT.referenceServer.info.name}";
+pub const PCP_SERVER_INFO_VERSION: &str = "${PCP_CONTRACT.referenceServer.info.version}";
+pub const PCP_SERVER_INFO_DESCRIPTION: &str = "${PCP_CONTRACT.referenceServer.info.description}";
+pub const PCP_SERVER_INSTRUCTIONS: &str = "${PCP_CONTRACT.referenceServer.instructions}";
 
 pub const PCP_METHOD_INITIALIZE: &str = "${methods.initialize}";
 pub const PCP_METHOD_CONTEXT_REQUEST: &str = "${methods.contextRequest}";
