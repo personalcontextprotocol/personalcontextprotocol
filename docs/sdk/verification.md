@@ -1,6 +1,6 @@
 # SDK Verification Notes
 
-Last local verification: 2026-07-06.
+Last local verification: 2026-07-10.
 
 ## Passed Locally
 
@@ -24,6 +24,8 @@ through:
 
 The Rust SDK also exercises the same fixtures in
 `sdk/rust/pcp-sdk/tests/conformance.rs`.
+Its helper coverage verifies that every non-initialize v0.1 client method sends
+the canonical contract method name and deserializes a valid result shape.
 
 `pnpm check:sdk-contracts` verifies, without a Rust toolchain, that:
 
