@@ -27,7 +27,7 @@ server must reject the method call.
 The demo grant includes all v0.1 scopes so every example can run locally:
 
 ```text
-grant_demo_codex
+grant_demo_assistant
 ```
 
 Production implementations should issue narrower grants.

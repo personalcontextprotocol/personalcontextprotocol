@@ -14,7 +14,7 @@ A client is the app asking for context.
 In the demo, the client is:
 
 ```text
-codex-local
+sample-assistant
 ```
 
 The client initializes with the server and receives the server's supported

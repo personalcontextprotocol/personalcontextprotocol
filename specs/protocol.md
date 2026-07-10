@@ -48,7 +48,7 @@ Browser requests that include an `Origin` header must use an allowed origin.
     "code": -32001,
     "message": "Consent grant is missing or revoked",
     "data": {
-      "grantId": "grant_demo_codex"
+      "grantId": "grant_demo_assistant"
     }
   }
 }

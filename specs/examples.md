@@ -38,8 +38,8 @@ const client = new PcpClient({
 await client.initialize({
   protocolVersion: PCP_PROTOCOL_VERSION,
   clientInfo: {
-    id: "codex-local",
-    name: "Codex Local",
+    id: "sample-assistant",
+    name: "Sample Assistant",
     version: "0.1.0",
     type: "local_cli"
   },
@@ -50,9 +50,9 @@ await client.initialize({
 });
 
 const result = await client.requestContext({
-  grantId: "grant_demo_codex",
-  purpose: "Help with PCP implementation",
-  task: "Read relevant project context",
+  grantId: "grant_demo_assistant",
+  purpose: "Help the user prepare for a planning session",
+  task: "Read relevant goals, preferences, and decisions",
   contextTypes: ["Project", "DecisionHistory"],
   maxItems: 10,
   freshnessPreference: "recent_first",

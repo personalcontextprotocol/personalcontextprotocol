@@ -13,10 +13,10 @@ Negotiates protocol version and discovers server capabilities.
 {
   "protocolVersion": "2026-06-24",
   "clientInfo": {
-    "id": "codex-local",
-    "name": "Codex Local",
+    "id": "sample-assistant",
+    "name": "Sample Assistant",
     "version": "0.1.0",
-    "description": "Local coding assistant",
+    "description": "Local assistant demo",
     "type": "local_cli"
   },
   "capabilities": {
@@ -72,9 +72,9 @@ Required scope: `context.read`
 
 ```json
 {
-  "grantId": "grant_demo_codex",
-  "purpose": "Help the user continue PCP design and implementation",
-  "task": "Implement PCP v0.1 reference server",
+  "grantId": "grant_demo_assistant",
+  "purpose": "Help the user prepare for a planning session",
+  "task": "Summarize current goals, preferences, and relevant decisions",
   "contextTypes": ["Project", "DecisionHistory", "MemoryItem"],
   "maxItems": 20,
   "freshnessPreference": "recent_first",
@@ -96,9 +96,9 @@ Required scope: `context.read`
   "contextPack": {
     "id": "context-pack-id",
     "userId": "user_demo",
-    "clientId": "codex-local",
-    "grantId": "grant_demo_codex",
-    "purpose": "Help the user continue PCP design and implementation",
+    "clientId": "sample-assistant",
+    "grantId": "grant_demo_assistant",
+    "purpose": "Help the user prepare for a planning session",
     "generatedAt": "2026-06-24T00:00:00.000Z",
     "expiresAt": "2026-06-24T01:00:00.000Z",
     "items": [],
@@ -121,8 +121,8 @@ Required scope: `context.search`
 
 ```json
 {
-  "grantId": "grant_demo_codex",
-  "query": "PCP protocol design",
+  "grantId": "grant_demo_assistant",
+  "query": "planning decisions",
   "contextTypes": ["Project", "DecisionHistory", "MemoryItem"],
   "limit": 10
 }
@@ -148,18 +148,18 @@ Required scope: `memory.propose`
 
 ```json
 {
-  "grantId": "grant_demo_codex",
+  "grantId": "grant_demo_assistant",
   "proposedItem": {
     "type": "DecisionHistory",
     "content": {
-      "text": "The user decided PCP v0.1 should use JSON-RPC over HTTP with scoped ContextPacks, consent grants, and memory proposals."
+      "text": "The user wants planning summaries to separate confirmed facts from assumptions."
     },
-    "tags": ["pcp", "protocol", "decision"],
+    "tags": ["planning", "decision"],
     "confidence": 0.9,
     "sensitivity": "low",
     "source": {
       "type": "client_proposal",
-      "origin": "codex-local",
+      "origin": "sample-assistant",
       "method": "explicit_conversation_summary",
       "capturedAt": "2026-06-24T00:00:00.000Z"
     },
@@ -168,7 +168,7 @@ Required scope: `memory.propose`
       "status": "fresh"
     }
   },
-  "reason": "This decision is useful for future PCP implementation continuity."
+  "reason": "This planning preference may be useful in future sessions."
 }
 ```
 
@@ -196,7 +196,7 @@ The reference server allows this only with the demo admin bearer token.
 
 ```json
 {
-  "grantId": "grant_demo_codex",
+  "grantId": "grant_demo_assistant",
   "item": {
     "type": "MemoryItem",
     "content": {
@@ -259,7 +259,7 @@ The reference server allows this only with the demo admin bearer token.
 
 ```json
 {
-  "grantId": "grant_demo_codex",
+  "grantId": "grant_demo_assistant",
   "itemId": "context-item-id"
 }
 ```
@@ -303,7 +303,7 @@ Required scope: `consent.read`
 
 ```json
 {
-  "clientId": "codex-local"
+  "clientId": "sample-assistant"
 }
 ```
 
@@ -325,7 +325,7 @@ Required scope: `consent.revoke`
 
 ```json
 {
-  "grantId": "grant_demo_codex"
+  "grantId": "grant_demo_assistant"
 }
 ```
 
@@ -334,7 +334,7 @@ Required scope: `consent.revoke`
 ```json
 {
   "grant": {
-    "id": "grant_demo_codex",
+    "id": "grant_demo_assistant",
     "status": "revoked"
   }
 }
@@ -352,8 +352,8 @@ Required scope: `context.audit.read`
 
 ```json
 {
-  "grantId": "grant_demo_codex",
-  "clientId": "codex-local",
+  "grantId": "grant_demo_assistant",
+  "clientId": "sample-assistant",
   "actions": ["context.requested", "context.searched"],
   "results": ["success"],
   "resourceId": "context-pack-id",
@@ -384,7 +384,7 @@ Required scope: `context.export`
 
 ```json
 {
-  "grantId": "grant_demo_codex",
+  "grantId": "grant_demo_assistant",
   "format": "json",
   "contextTypes": ["Project", "DecisionHistory"]
 }

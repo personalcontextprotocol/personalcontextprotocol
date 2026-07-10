@@ -10,10 +10,10 @@ describe("protocol schemas", () => {
     const parsed = InitializeParamsSchema.parse({
       protocolVersion: PCP_PROTOCOL_VERSION,
       clientInfo: {
-        id: "codex-local",
-        name: "Codex Local",
+        id: "sample-assistant",
+        name: "Sample Assistant",
         version: "0.1.0",
-        description: "Local coding assistant"
+        description: "Local assistant demo"
       },
       capabilities: {
         context: {},
@@ -26,9 +26,9 @@ describe("protocol schemas", () => {
 
   it("defaults context request limits and flags", () => {
     const parsed = ContextRequestParamsSchema.parse({
-      grantId: "grant_demo_codex",
+      grantId: "grant_demo_assistant",
       purpose: "Help with PCP",
-      task: "Implement PCP v0.1",
+      task: "Summarize current goals, preferences, and relevant decisions",
       contextTypes: ["Project"]
     });
 

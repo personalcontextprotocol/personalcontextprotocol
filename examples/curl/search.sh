@@ -9,8 +9,8 @@ curl -s http://127.0.0.1:8787/pcp \
     "id": "3",
     "method": "pcp.context.search",
     "params": {
-      "grantId": "grant_demo_codex",
-      "query": "PCP protocol design",
+      "grantId": "grant_demo_assistant",
+      "query": "planning decisions",
       "contextTypes": ["Project", "DecisionHistory", "MemoryItem"],
       "limit": 10
     }

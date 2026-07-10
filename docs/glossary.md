@@ -3,7 +3,7 @@
 ## AppClient
 
 The application asking for personal context. In the demo, this is
-`codex-local`.
+`sample-assistant`.
 
 ## AuditLog
 

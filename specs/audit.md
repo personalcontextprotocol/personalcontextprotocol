@@ -35,8 +35,8 @@ Allowed results:
 {
   "id": "audit-id",
   "userId": "user_demo",
-  "clientId": "codex-local",
-  "grantId": "grant_demo_codex",
+  "clientId": "sample-assistant",
+  "grantId": "grant_demo_assistant",
   "action": "context.returned",
   "scope": "context.read",
   "resourceId": "context-pack-id",

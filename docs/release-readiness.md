@@ -1,9 +1,8 @@
 # PCP v0.1 Alpha Release Readiness
 
 This document is the maintainer-facing release checklist for PCP v0.1 alpha.
-It prepares the repository for public review without performing manual release
-actions such as pushing, tagging, publishing packages, posting announcements, or
-submitting the whitepaper.
+It defines the public-review bar for the repository and separates automated
+verification from release actions owned by the maintainer.
 
 ## Public Positioning
 
@@ -36,7 +35,25 @@ Before public release, the repository should contain:
 - governance files: `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`,
   `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, and `CITATION.cff`
 - GitHub issue templates, pull request template, and CI workflow
-- PCP-scoped `AGENTS.md` for repeatable agent behavior
+- maintainer guidance for contract-first changes and release verification
+
+## Documentation Requirements
+
+Public documentation should give each audience a clear path:
+
+- newcomers: what PCP is, what problem it solves, and what it is not
+- AI application developers: how to request context, which scopes are needed,
+  and how to use the SDKs
+- server and SDK implementers: the normative contract, schemas, fixtures,
+  transport, methods, objects, security behavior, and audit behavior
+- reviewers: the whitepaper, alpha limitations, release posture, and
+  verification status
+- maintainers: release checks, generated-artifact rules, and manual release
+  actions
+
+Public documentation should not describe how a change was developed, which
+assistant produced it, or temporary implementation steps. Development history
+belongs in commit history and pull requests, not in the protocol docs.
 
 ## Required Verification
 

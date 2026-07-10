@@ -13,7 +13,7 @@ PCP is inspired by MCP's protocol discipline, but it is not MCP. MCP connects
 AI systems to tools and external systems. PCP connects AI systems to
 user-owned personal context.
 
-This repository contains a runnable PCP v0.1 alpha reference implementation:
+This repository contains the runnable PCP v0.1 alpha reference implementation:
 
 - `packages/protocol`: TypeScript/Zod schemas, JSON-RPC types, PCP errors, generated JSON Schema, generated contract metadata, and conformance fixtures.
 - `server`: Local-first Fastify reference server with SQLite persistence.
@@ -22,7 +22,7 @@ This repository contains a runnable PCP v0.1 alpha reference implementation:
 - `examples`: Seed data, curl requests, a runnable demo client, and SDK examples.
 - `specs`: Protocol reference for implementers.
 - `docs`: Plain-language guides for new users and developers.
-- `paper`: Whitepaper draft for technical review.
+- `paper`: Technical whitepaper for review.
 
 ## Alpha Status
 
@@ -38,22 +38,36 @@ PCP v0.1 is intentionally limited:
 Production systems should treat this repository as protocol groundwork, not as
 a drop-in hosted context service.
 
-## Who This Is For
+## Choose Your Path
 
-If you are not a protocol expert, start here:
+If you are new to PCP:
 
 1. [Documentation Map](docs/index.md)
 2. [What PCP Is](docs/what-is-pcp.md)
 3. [Getting Started](docs/getting-started.md)
 4. [How PCP Works](docs/how-it-works.md)
 
-If you are building an implementation:
+If you are building an AI application that consumes personal context:
 
-1. [Developer Guide](docs/developer-guide.md)
+1. [Getting Started](docs/getting-started.md)
 2. [SDK Guide](docs/sdk/index.md)
 3. [Method Reference](specs/methods.md)
-4. [Object Reference](specs/objects.md)
+4. [Scopes](specs/scopes.md)
+
+If you are implementing a PCP server, SDK, or compatible client:
+
+1. [Developer Guide](docs/developer-guide.md)
+2. [PCP v0.1 Specification](specs/pcp-v0.1.md)
+3. [Object Reference](specs/objects.md)
+4. [Protocol Transport](specs/protocol.md)
 5. [Security Model](specs/security.md)
+
+If you are reviewing the proposal:
+
+1. [Whitepaper](paper/pcp-v0.1-whitepaper.md)
+2. [Security Model](specs/security.md)
+3. [Audit Model](specs/audit.md)
+4. [Release Readiness](docs/release-readiness.md)
 
 ## Quick Start
 
@@ -141,9 +155,9 @@ All protocol calls use JSON-RPC 2.0 over `POST /pcp`.
   "id": "1",
   "method": "pcp.context.request",
   "params": {
-    "grantId": "grant_demo_codex",
-    "purpose": "Help the user continue PCP design and implementation",
-    "task": "Implement PCP v0.1 reference server",
+    "grantId": "grant_demo_assistant",
+    "purpose": "Help the user prepare for a project planning session",
+    "task": "Summarize current goals, preferences, and relevant decisions",
     "contextTypes": ["Project", "DecisionHistory", "MemoryItem"],
     "maxItems": 20,
     "freshnessPreference": "recent_first",
@@ -182,8 +196,8 @@ Errors look like this:
 The demo seed creates:
 
 - user `user_demo`
-- client `codex-local`
-- grant `grant_demo_codex`
+- client `sample-assistant`
+- grant `grant_demo_assistant`
 - context items about PCP goals, preferences, decisions, and communication style
 
 The demo grant includes every v0.1 scope so local examples can exercise the
@@ -229,13 +243,6 @@ cargo build --workspace
 cargo test --workspace
 ```
 
-## Agent Workflow
-
-Future coding agents should follow [AGENTS.md](AGENTS.md). In short: keep PCP
-contract-first, keep TypeScript and Rust SDKs aligned to the canonical v0.1
-alpha contract, preserve consent/provenance/audit boundaries, and run the
-release checks before calling changes ready.
-
 ## Repository Map
 
 ```text
@@ -246,7 +253,7 @@ sdk/rust/pcp-sdk/    Rust SDK crate
 examples/            Demo client, curl scripts, seed context, SDK examples
 specs/               Implementer-facing protocol reference
 docs/                Plain-language, developer, and SDK guides
-paper/               PCP v0.1 whitepaper draft
+paper/               PCP v0.1 technical whitepaper
 ```
 
 ## Learn More

@@ -30,6 +30,17 @@ that context can become messy:
 PCP gives developers a clean boundary. The AI app does not directly own the
 person's memory. It requests scoped context from a context server.
 
+## Who Uses PCP
+
+PCP has three main audiences:
+
+- people who want control over what personal context an AI app can use
+- AI application developers who need a consistent way to request relevant context
+- server and SDK implementers who need a small, testable protocol contract
+
+The v0.1 reference implementation is meant to make that contract concrete. It
+is small enough to inspect, run locally, test, and adapt.
+
 ## Simple Analogy
 
 Think of PCP like a library card for personal context.
@@ -50,6 +61,15 @@ PCP is not a vector database or an LLM framework.
 
 PCP is the protocol layer that lets those systems ask for personal context in a
 structured, consent-aware, auditable way.
+
+## How PCP Relates to MCP
+
+MCP gives AI applications a standard way to connect to tools and external
+systems. PCP focuses on a narrower boundary: consent-scoped personal context.
+
+An AI application could use both. For example, it could use MCP to call tools
+and use PCP to request only the personal context that a user has allowed for the
+current task.
 
 ## What the Reference Server Is
 

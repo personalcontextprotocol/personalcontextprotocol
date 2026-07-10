@@ -46,8 +46,8 @@ This creates a local SQLite database at `.pcp/pcp.sqlite`.
 The seeded demo includes:
 
 - user `user_demo`
-- client `codex-local`
-- grant `grant_demo_codex`
+- client `sample-assistant`
+- grant `grant_demo_assistant`
 - several context items about PCP
 
 ## 4. Start the Server

@@ -28,7 +28,7 @@ function testConfig() {
     demoToken: "pcp_demo_token",
     databasePath: join(dir, "pcp.sqlite"),
     allowedOrigins: ["http://127.0.0.1:8787"],
-    defaultClientId: "codex-local"
+    defaultClientId: "sample-assistant"
   };
 }
 
@@ -111,8 +111,8 @@ describe("PCP reference server", () => {
     const initialize = await rpc(app, "initialize", {
       protocolVersion: PCP_PROTOCOL_VERSION,
       clientInfo: {
-        id: "codex-local",
-        name: "Codex Local",
+        id: "sample-assistant",
+        name: "Sample Assistant",
         version: "0.1.0"
       },
       capabilities: {
@@ -123,9 +123,9 @@ describe("PCP reference server", () => {
     assert.equal(initialize.result.protocolVersion, PCP_PROTOCOL_VERSION);
 
     const context = await rpc(app, "pcp.context.request", {
-      grantId: "grant_demo_codex",
+      grantId: "grant_demo_assistant",
       purpose: "Test context request",
-      task: "Verify PCP server",
+      task: "Verify planning context retrieval",
       contextTypes: ["Project", "DecisionHistory", "Preference"],
       maxItems: 10,
       freshnessPreference: "recent_first",
@@ -135,15 +135,15 @@ describe("PCP reference server", () => {
     assert.ok(context.result.contextPack.items.length > 0);
 
     const search = await rpc(app, "pcp.context.search", {
-      grantId: "grant_demo_codex",
-      query: "JSON-RPC",
+      grantId: "grant_demo_assistant",
+      query: "planning reviews",
       contextTypes: ["DecisionHistory"],
       limit: 5
     });
     assert.ok(search.result.total > 0);
 
     const proposal = await rpc(app, "pcp.memory.propose", {
-      grantId: "grant_demo_codex",
+      grantId: "grant_demo_assistant",
       proposedItem: {
         type: "DecisionHistory",
         content: { text: "Server integration tests verify PCP v0.1 behavior." },
@@ -158,12 +158,12 @@ describe("PCP reference server", () => {
         freshness: { status: "fresh" },
         sensitivity: "low"
       },
-      reason: "Tests should preserve implementation continuity."
+      reason: "This planning preference may be useful in future sessions."
     });
     assert.equal(proposal.result.proposal.status, "pending");
 
     const created = await rpc(app, "pcp.memory.create", {
-      grantId: "grant_demo_codex",
+      grantId: "grant_demo_assistant",
       item: {
         type: "MemoryItem",
         content: { text: "Temporary memory for delete verification." },
@@ -182,16 +182,16 @@ describe("PCP reference server", () => {
     assert.ok(created.result.item.id);
 
     const deleted = await rpc(app, "pcp.memory.delete", {
-      grantId: "grant_demo_codex",
+      grantId: "grant_demo_assistant",
       itemId: created.result.item.id
     });
     assert.equal(deleted.result.item.id, created.result.item.id);
 
-    const consent = await rpc(app, "pcp.consent.list", { clientId: "codex-local" });
+    const consent = await rpc(app, "pcp.consent.list", { clientId: "sample-assistant" });
     assert.equal(consent.result.grants.length, 1);
 
     const audit = await rpc(app, "pcp.audit.list", {
-      grantId: "grant_demo_codex",
+      grantId: "grant_demo_assistant",
       actions: ["context.requested", "context.searched"],
       limit: 10
     });
@@ -199,7 +199,7 @@ describe("PCP reference server", () => {
     assert.ok(audit.result.logs.length >= 2);
 
     const exported = await rpc(app, "pcp.export.create", {
-      grantId: "grant_demo_codex",
+      grantId: "grant_demo_assistant",
       format: "json"
     });
     assert.ok(exported.result.export.itemCount > 0);
