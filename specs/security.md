@@ -1,10 +1,28 @@
 # Security Model
 
-PCP v0.1 is local-first. The reference implementation is meant for development,
-experimentation, and protocol validation.
+PCP v0.1 is deployment-neutral. A PCP server can be local, self-hosted, hosted
+by an owner-controlled service, or embedded inside another owner-controlled
+runtime.
 
-It is not production authentication infrastructure or a hosted multi-tenant
-identity system.
+The reference implementation in this repository is configured for local
+development, experimentation, and protocol validation by default.
+
+The reference implementation is not production authentication infrastructure or
+a hosted multi-tenant identity system.
+
+## Protocol Requirements
+
+A PCP server MUST:
+
+- reject unauthenticated protected method calls
+- validate grant status before returning protected data or mutating state
+- validate grant expiration before returning protected data or mutating state
+- validate the required scope for each protected method
+- exclude `restricted` context items from normal reads and exports
+- write audit entries for important access, mutation, denial, and export events
+
+A PCP client SHOULD request only the scopes needed for the current task and
+SHOULD include a clear `purpose` and `task` in context requests.
 
 ## Reference Server Controls
 
@@ -64,9 +82,9 @@ Context items can be:
 
 The reference server excludes `restricted` items from ContextPacks and exports.
 
-## Production Notes
+## Production Implementation Notes
 
-A production implementation should add:
+A production or hosted implementation SHOULD add:
 
 - real user authentication
 - token rotation
@@ -76,4 +94,6 @@ A production implementation should add:
 - encryption-at-rest policy
 - explicit production deployment hardening
 
-Those are intentionally outside the v0.1 reference server.
+Those are intentionally outside the v0.1 reference server, but they are
+compatible with PCP when they preserve the required consent, scope, provenance,
+sensitivity, freshness, and audit behavior.

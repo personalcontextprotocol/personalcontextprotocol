@@ -20,7 +20,10 @@ Scopes define what a client is allowed to do.
 ## Fail-Closed Rule
 
 If a grant is missing, revoked, expired, or missing the required scope, the
-server must reject the method call.
+server MUST reject the method call.
+
+Servers MUST NOT infer access from client identity alone. Protected actions
+require an active, unexpired grant with the method's required scope.
 
 ## Reference Demo Grant
 

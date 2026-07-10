@@ -3,6 +3,9 @@
 All methods use JSON-RPC 2.0 envelopes. This page documents the `params` and
 `result` payloads.
 
+Method behavior described as "reference server" behavior is not a protocol
+restriction unless the canonical schema or this specification says it is.
+
 ## `initialize`
 
 Negotiates protocol version and discovers server capabilities.
@@ -190,7 +193,10 @@ Creates a ContextItem directly.
 
 Required scope: `memory.write`
 
-The reference server allows this only with the demo admin bearer token.
+Protocol requirement: the grant must include `memory.write`.
+
+Reference server note: the local reference server also requires the demo admin
+bearer token for direct memory creation.
 
 ### Params
 
@@ -253,7 +259,10 @@ Deletes an existing ContextItem.
 
 Required scope: `memory.write`
 
-The reference server allows this only with the demo admin bearer token.
+Protocol requirement: the grant must include `memory.write`.
+
+Reference server note: the local reference server also requires the demo admin
+bearer token for direct memory deletion.
 
 ### Params
 

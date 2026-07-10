@@ -143,7 +143,7 @@ server/src/db/seed.ts
 
 ## Security Boundary
 
-For v0.1, security is local-first:
+For the v0.1 reference server, security is configured for local development:
 
 - one bearer token from environment config
 - localhost bind by default
@@ -153,7 +153,9 @@ For v0.1, security is local-first:
 - restricted sensitivity context is excluded from context packs and exports
 
 Do not treat the v0.1 reference server as a production hosted multi-tenant auth
-system.
+system. The PCP protocol itself is deployment-neutral; production or hosted
+servers need stronger identity, key-management, audit-review, and operational
+controls.
 
 ## Audit Inspection
 

@@ -171,12 +171,12 @@ pnpm audit:logs
 ```
 
 The reference server binds to `127.0.0.1` by default and uses a demo bearer
-token. It is local-first infrastructure for protocol review, not production
-authentication.
+token. It is configured for protocol review and local development, not
+production authentication.
 
 ## Limitations
 
-PCP v0.1 alpha does not include:
+PCP v0.1 alpha does not prescribe:
 
 - OAuth or hosted identity
 - production token rotation
@@ -189,8 +189,10 @@ PCP v0.1 alpha does not include:
 - distributed sync
 - compatibility guarantees beyond v0.1 alpha
 
-The current implementation should not be deployed as a public hosted service
-without substantial additional security, privacy, operational, and product work.
+The current reference implementation should not be deployed as a public hosted
+service without substantial additional security, privacy, operational, and
+product work. That deployment warning is about this implementation, not about
+the protocol's ability to support hosted or self-hosted runtimes.
 
 ## Future Work
 

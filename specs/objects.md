@@ -65,11 +65,17 @@ Allowed scopes:
 
 - `context.read`
 - `context.search`
+- `context.sync`
+- `context.audit.read`
 - `memory.propose`
 - `memory.write`
 - `consent.read`
 - `consent.revoke`
+- `grants.manage`
 - `context.export`
+
+`context.sync` and `grants.manage` are reserved in v0.1. The reference server
+does not expose sync profiles or owner-managed grant issuance methods.
 
 ## `ContextItem`
 

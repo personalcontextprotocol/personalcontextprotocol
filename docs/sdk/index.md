@@ -153,5 +153,5 @@ SDKs must not:
 - silently retry with a different protocol version
 - invent hidden endpoint, token, grant, timeout, or identity defaults
 - accept invalid response shapes as successful results
-- claim production hosted-service security maturity for the local-first v0.1
-  reference implementation
+- claim production hosted-service security maturity for the v0.1 reference
+  implementation

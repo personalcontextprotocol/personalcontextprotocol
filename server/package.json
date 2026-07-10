@@ -1,7 +1,7 @@
 {
   "name": "@pcp/server",
   "version": "0.1.0",
-  "description": "PCP v0.1 alpha local-first reference server",
+  "description": "PCP v0.1 alpha reference server for local development and protocol review",
   "license": "MIT",
   "type": "module",
   "author": "PCP maintainers",

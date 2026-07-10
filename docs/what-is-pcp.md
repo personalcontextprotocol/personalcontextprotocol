@@ -73,9 +73,13 @@ current task.
 
 ## What the Reference Server Is
 
-The v0.1 reference server is local-first. It uses a local SQLite database, a
-demo bearer token, and seeded consent grants so the protocol can be run and
-reviewed.
+The v0.1 reference server is configured for local development and protocol
+review. It uses a local SQLite database, a demo bearer token, and seeded consent
+grants so the protocol can be run and inspected with minimal setup.
 
 It is not production authentication, not a hosted identity system, and not a
 claim that v0.1 is complete.
+
+That is a limit of the bundled reference server, not a deployment limit of PCP.
+The protocol can also be implemented by self-hosted or hosted owner-controlled
+services.

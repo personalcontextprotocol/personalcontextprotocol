@@ -10,7 +10,7 @@ Use this wording:
 
 - PCP v0.1 alpha
 - open protocol proposal
-- local-first reference implementation
+- reference implementation configured for local development and protocol review
 - TypeScript and Rust SDKs for the canonical v0.1 alpha contract
 
 Avoid this wording:
@@ -30,7 +30,7 @@ Before public release, the repository should contain:
 - canonical TypeScript protocol package under `packages/protocol/`
 - TypeScript client under `client/`
 - Rust SDK under `sdk/rust/pcp-sdk/`
-- local-first reference server under `server/`
+- reference server under `server/`
 - runnable examples under `examples/`
 - governance files: `LICENSE`, `SECURITY.md`, `CONTRIBUTING.md`,
   `CODE_OF_CONDUCT.md`, `CHANGELOG.md`, and `CITATION.cff`
@@ -50,6 +50,9 @@ Public documentation should give each audience a clear path:
   verification status
 - maintainers: release checks, generated-artifact rules, and manual release
   actions
+
+See [Production V1 Readiness](production-v1-readiness.md) for the remaining
+gaps between public v0.1 alpha and production-ready V1.
 
 Public documentation should not describe how a change was developed, which
 assistant produced it, or temporary implementation steps. Development history
@@ -99,4 +102,5 @@ claim:
 > PCP v0.1 alpha is a runnable, documented, contract-first open protocol
 > proposal and reference implementation for consent-scoped, provenance-aware
 > personal context exchange. It is ready for public review and implementation
-> feedback, but it is not a ratified standard or production hosted service.
+> feedback, but it is not a ratified standard, and this release does not ship a
+> production hosted service.

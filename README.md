@@ -16,11 +16,11 @@ user-owned personal context.
 This repository contains the runnable PCP v0.1 alpha reference implementation:
 
 - `packages/protocol`: TypeScript/Zod schemas, JSON-RPC types, PCP errors, generated JSON Schema, generated contract metadata, and conformance fixtures.
-- `server`: Local-first Fastify reference server with SQLite persistence.
+- `server`: Fastify reference server configured for local development with SQLite persistence.
 - `client`: TypeScript SDK and CLI.
 - `sdk/rust/pcp-sdk`: Rust SDK crate.
 - `examples`: Seed data, curl requests, a runnable demo client, and SDK examples.
-- `specs`: Protocol reference for implementers.
+- `specs`: Versioned protocol specification for implementers.
 - `docs`: Plain-language guides for new users and developers.
 - `paper`: Technical whitepaper for review.
 
@@ -29,14 +29,14 @@ This repository contains the runnable PCP v0.1 alpha reference implementation:
 PCP v0.1 is intentionally limited:
 
 - it is a proposal, not a ratified standard
-- the reference server is local-first and not production authentication
+- the reference server is configured for local development and protocol review
 - consent grants are seeded locally for demonstration
 - the demo token is not a production identity model
 - audit logs are stored locally in SQLite
 - no compatibility promise is made beyond the v0.1 alpha line
 
-Production systems should treat this repository as protocol groundwork, not as
-a drop-in hosted context service.
+Production systems should treat this repository as protocol groundwork and a
+reference implementation, not as a packaged hosted context service.
 
 ## Choose Your Path
 
@@ -57,7 +57,7 @@ If you are building an AI application that consumes personal context:
 If you are implementing a PCP server, SDK, or compatible client:
 
 1. [Developer Guide](docs/developer-guide.md)
-2. [PCP v0.1 Specification](specs/pcp-v0.1.md)
+2. [PCP Specification](specs/index.md)
 3. [Object Reference](specs/objects.md)
 4. [Protocol Transport](specs/protocol.md)
 5. [Security Model](specs/security.md)
@@ -144,6 +144,11 @@ PCP v0.1 is intentionally small:
 
 Those omissions keep the protocol understandable, testable, and easy to run
 locally.
+
+These are not deployment restrictions. A production implementation can add
+hosted identity, stronger auth, encrypted storage, retrieval systems, or model
+integrations around the protocol while preserving PCP's consent, scope,
+provenance, sensitivity, freshness, and audit requirements.
 
 ## Basic Request
 
@@ -251,7 +256,7 @@ server/              Reference server
 client/              TypeScript SDK and CLI
 sdk/rust/pcp-sdk/    Rust SDK crate
 examples/            Demo client, curl scripts, seed context, SDK examples
-specs/               Implementer-facing protocol reference
+specs/               Versioned protocol specification
 docs/                Plain-language, developer, and SDK guides
 paper/               PCP v0.1 technical whitepaper
 ```
@@ -266,4 +271,5 @@ paper/               PCP v0.1 technical whitepaper
 - [SDK Guide](docs/sdk/index.md)
 - [Troubleshooting](docs/troubleshooting.md)
 - [Whitepaper](paper/pcp-v0.1-whitepaper.md)
-- [Protocol Spec](specs/pcp-v0.1.md)
+- [Protocol Spec](specs/index.md)
+- [Production V1 Readiness](docs/production-v1-readiness.md)

@@ -3,8 +3,9 @@
 This guide gets the local PCP v0.1 alpha reference implementation running on
 your machine.
 
-The reference server is local-first. It is useful for protocol review,
-development, and demos, but it is not production authentication infrastructure.
+The reference server is configured for local development and protocol review. It
+is useful for development and demos, but it is not production authentication
+infrastructure.
 
 ## Requirements
 
@@ -132,6 +133,11 @@ pnpm seed
 
 ## Alpha Limitations
 
-PCP v0.1 does not include OAuth, hosted identity, production token rotation,
-multi-tenant authorization, encryption-at-rest policy, vector search, an LLM, or
-a frontend UI. Those omissions keep the proposal inspectable and local-first.
+The v0.1 reference implementation does not include OAuth, hosted identity,
+production token rotation, multi-tenant authorization, encryption-at-rest
+policy, vector search, an LLM, or a frontend UI. Those omissions keep the
+reference implementation inspectable and easy to run locally.
+
+The PCP protocol is deployment-neutral. Production implementations can add those
+systems around the protocol while preserving consent, scope, provenance,
+sensitivity, freshness, and audit behavior.

@@ -2,8 +2,8 @@
 
 PCP audit logs make context access inspectable.
 
-The server should write audit entries for meaningful reads, writes, denials,
-and exports.
+Servers MUST write audit entries for meaningful reads, writes, denials, grant
+changes, audit listing, and exports.
 
 ## Audit Actions
 
@@ -50,7 +50,7 @@ Allowed results:
 
 ## Reference Server Storage
 
-The reference server stores audit logs in SQLite table:
+The reference server stores audit logs in the SQLite table:
 
 ```text
 audit_logs

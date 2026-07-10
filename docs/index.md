@@ -33,10 +33,12 @@ PCP.
 Use these pages when you are building a compatible server, SDK, or test suite.
 
 - [PCP v0.1 Specification](../specs/pcp-v0.1.md): normative v0.1 contract overview
+- [Specification Index](../specs/index.md): versioned public specification entry point
 - [Object Reference](../specs/objects.md): AppClient, ConsentGrant, ContextItem, ContextPack, MemoryProposal, and AuditLog
 - [Lifecycle](../specs/lifecycle.md): expected client and grant flow
-- [Security Model](../specs/security.md): required local-first security behavior
+- [Security Model](../specs/security.md): protocol security requirements and reference-server controls
 - [Audit](../specs/audit.md): auditable actions and storage model
+- [Schema Reference](../specs/schema.md): schema source of truth, generated artifacts, and conformance fixtures
 - [Developer Guide](developer-guide.md): repository architecture and extension workflow
 
 ## Reviewing the Proposal
@@ -45,4 +47,5 @@ Use these pages to evaluate the protocol, its limits, and its release posture.
 
 - [Whitepaper](../paper/pcp-v0.1-whitepaper.md): technical narrative and limitations
 - [Release Readiness](release-readiness.md): public-alpha checklist and verification gate
+- [Production V1 Readiness](production-v1-readiness.md): remaining production and V1 gaps
 - [SDK Verification Notes](sdk/verification.md): SDK conformance status
