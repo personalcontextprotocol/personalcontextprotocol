@@ -46,6 +46,5 @@ Use these pages when you are building a compatible server, SDK, or test suite.
 Use these pages to evaluate the protocol, its limits, and its release posture.
 
 - [Whitepaper](../paper/pcp-v0.1-whitepaper.md): technical narrative and limitations
-- [Release Readiness](release-readiness.md): public-alpha checklist and verification gate
 - [Production V1 Readiness](production-v1-readiness.md): remaining production and V1 gaps
 - [SDK Verification Notes](sdk/verification.md): SDK conformance status

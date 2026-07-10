@@ -1,8 +1,8 @@
 # Security Policy
 
-PCP v0.1 alpha is an open protocol proposal and local-first reference
-implementation. It is intended for development, review, interoperability
-experiments, and protocol discussion.
+PCP v0.1 alpha is an open protocol proposal and reference implementation
+configured for local development and protocol review. It is intended for
+development, review, interoperability experiments, and protocol discussion.
 
 The reference server is not production authentication infrastructure. It uses a
 single bearer token, localhost binding by default, local SQLite storage, and
@@ -45,7 +45,7 @@ In scope:
 - consent or scope bypasses in the reference server
 - audit log omission for meaningful access, denial, mutation, or export events
 - context exposure beyond the requested grant
-- unsafe defaults that affect local-first use
+- unsafe defaults that affect local development or protocol review
 - dependency vulnerabilities that affect supported commands
 
 Out of scope:

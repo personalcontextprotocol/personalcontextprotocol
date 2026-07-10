@@ -67,8 +67,8 @@ The protocol model has five main actors and objects:
 - ContextPacks return selected context for a particular request.
 
 The core v0.1 methods cover initialization, context request, context search,
-memory proposal, direct memory creation with an explicit write scope, consent
-listing, consent revocation, and context export.
+memory proposal, direct memory create/delete with an explicit write scope,
+consent listing, consent revocation, scoped audit listing, and context export.
 
 ## Consent and Scopes
 
@@ -80,11 +80,12 @@ The v0.1 scope model is intentionally small:
 
 - `context.read`
 - `context.search`
+- `context.audit.read`
 - `memory.propose`
 - `memory.write`
 - `consent.read`
 - `consent.revoke`
-- `export.create`
+- `context.export`
 
 This is not a complete production authorization model. It is a minimum shape for
 reviewing whether context requests, memory proposals, and exports can be
@@ -121,9 +122,9 @@ PCP separates memory proposals from direct memory writes.
 proposal is stored as pending. This supports review workflows where an owner or
 trusted system can decide whether the proposal should become durable memory.
 
-`pcp.memory.create` exists for clients with the explicit `memory.write` scope.
-Production implementations should be careful with this scope because it allows a
-client to write directly into the personal context store.
+`pcp.memory.create` and `pcp.memory.delete` exist for clients with the explicit
+`memory.write` scope. Production implementations should be careful with this
+scope because it allows a client to mutate the personal context store directly.
 
 ## Auditability
 
@@ -149,6 +150,9 @@ LIMIT 20;
 The v0.1 audit model is deliberately simple. It demonstrates that auditability
 belongs in the protocol and implementation path, but it does not yet define a
 full operational audit review product.
+
+Clients with `context.audit.read` can call `pcp.audit.list` to inspect scoped
+audit entries visible under a grant.
 
 ## Reference Implementation
 
@@ -204,7 +208,7 @@ Open areas for future versions include:
 - richer freshness and expiration semantics
 - memory proposal review lifecycle
 - interoperability profiles with MCP-enabled applications
-- conformance tests
+- broader conformance test coverage across independent implementations
 - privacy-preserving sync and backup models
 - clearer migration rules between protocol versions
 

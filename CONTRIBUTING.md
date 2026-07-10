@@ -13,7 +13,8 @@ Good alpha contributions include:
 - tests for existing protocol behavior
 - schema/spec consistency fixes
 - clarity improvements for consent, provenance, sensitivity, freshness, and auditability
-- implementation fixes that keep the reference server local-first
+- implementation fixes that keep the reference server configured for local
+  development and protocol review
 
 Avoid adding new protocol features unless they are needed to make v0.1 credible
 or to remove ambiguity in the existing model.

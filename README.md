@@ -67,7 +67,7 @@ If you are reviewing the proposal:
 1. [Whitepaper](paper/pcp-v0.1-whitepaper.md)
 2. [Security Model](specs/security.md)
 3. [Audit Model](specs/audit.md)
-4. [Release Readiness](docs/release-readiness.md)
+4. [Production V1 Readiness](docs/production-v1-readiness.md)
 
 ## Quick Start
 
