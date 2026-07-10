@@ -79,6 +79,7 @@ See [schema.md](schema.md) for schema and generated-artifact rules.
 - [methods.md](methods.md): method params, results, defaults, and required scopes
 - [objects.md](objects.md): protocol object shapes and allowed enum values
 - [scopes.md](scopes.md): permission scopes and fail-closed authorization rule
+- [authorization-consent.md](authorization-consent.md): draft app-binding and owner-consent profile
 - [security.md](security.md): protocol security requirements, reference-server controls, and production implementation requirements
 - [audit.md](audit.md): auditable actions and audit result model
 - [schema.md](schema.md): schema source of truth, JSON Schema, contract metadata, and conformance fixtures

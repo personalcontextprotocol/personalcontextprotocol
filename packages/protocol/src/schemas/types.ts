@@ -1,4 +1,5 @@
 export * from "./app-client.js";
+export * from "./authorization-consent.js";
 export * from "./audit-log.js";
 export * from "./common.js";
 export * from "./consent-grant.js";

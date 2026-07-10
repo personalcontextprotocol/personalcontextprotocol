@@ -24,6 +24,11 @@ A PCP server MUST:
 A PCP client SHOULD request only the scopes needed for the current task and
 SHOULD include a clear `purpose` and `task` in context requests.
 
+The optional [Authorization And Consent Profile](authorization-consent.md)
+defines a draft app-binding flow for owner-approved client access. It is
+additive to the v0.1 protocol and does not replace OAuth, OpenID Connect, or a
+server's owner-authentication system.
+
 ## Reference Server Controls
 
 - Bearer-token authentication is required.
@@ -97,3 +102,7 @@ A production or hosted implementation SHOULD add:
 Those are intentionally outside the v0.1 reference server, but they are
 compatible with PCP when they preserve the required consent, scope, provenance,
 sensitivity, freshness, and audit behavior.
+
+Implementations that expose app-driven consent SHOULD follow the draft
+[Authorization And Consent Profile](authorization-consent.md) or document their
+equivalent grant issuance, binding, expiry, revocation, and audit behavior.

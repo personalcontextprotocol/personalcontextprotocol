@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "conformance-expired-1",
+  "error": {
+    "code": -32004,
+    "message": "Consent grant is expired",
+    "data": {
+      "grantId": "grant_sample_assistant"
+    }
+  }
+}

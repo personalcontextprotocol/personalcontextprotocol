@@ -22,6 +22,7 @@ owner-controlled runtimes.
 - [Methods](methods.md): method params, result payloads, defaults, and required scopes
 - [Objects](objects.md): protocol object shapes and enum values
 - [Scopes](scopes.md): permission scopes and fail-closed authorization
+- [Authorization And Consent Profile](authorization-consent.md): draft app-binding and owner-consent profile
 - [Security](security.md): protocol security requirements and reference-server controls
 - [Audit](audit.md): audit actions and result model
 - [Schema Reference](schema.md): canonical schema source, generated artifacts, and conformance fixtures

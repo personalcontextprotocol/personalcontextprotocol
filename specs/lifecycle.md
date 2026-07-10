@@ -17,6 +17,11 @@ The reference server does this locally through:
 pnpm seed
 ```
 
+Servers that support app-initiated consent MAY instead use the draft
+[Authorization And Consent Profile](authorization-consent.md). In that flow, an
+app requests access, the owner approves or denies it, and the server creates a
+client binding plus consent grant.
+
 ## 2. Initialize
 
 The client MUST call:
@@ -31,6 +36,9 @@ The server returns:
 - server information
 - supported capabilities
 - instructions
+
+Servers MAY also advertise optional authorization profile discovery under
+`capabilities.authorization`.
 
 Initialization does not create a long-lived streaming session in v0.1.
 

@@ -5,6 +5,13 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { PCP_CONTRACT } from "./contract.js";
 import { JsonRpcRequestSchema, JsonRpcResponseSchema } from "./jsonrpc.js";
 import { AppClientSchema } from "./schemas/app-client.js";
+import {
+  ConsentAccessPolicySchema,
+  PcpAuthorizationBindingResultSchema,
+  PcpAuthorizationCodeExchangeSchema,
+  PcpAuthorizationDiscoverySchema,
+  PcpAuthorizationRequestSchema
+} from "./schemas/authorization-consent.js";
 import { AuditLogSchema } from "./schemas/audit-log.js";
 import { ConsentGrantSchema } from "./schemas/consent-grant.js";
 import { ContextItemSchema } from "./schemas/context-item.js";
@@ -45,6 +52,15 @@ const PcpV01Schema = z.object({
     contextPack: ContextPackSchema,
     memoryProposal: MemoryProposalSchema,
     auditLog: AuditLogSchema
+  }),
+  profiles: z.object({
+    authorizationConsent: z.object({
+      authorizationRequest: PcpAuthorizationRequestSchema,
+      authorizationCodeExchange: PcpAuthorizationCodeExchangeSchema,
+      authorizationBindingResult: PcpAuthorizationBindingResultSchema,
+      authorizationDiscovery: PcpAuthorizationDiscoverySchema,
+      consentAccessPolicy: ConsentAccessPolicySchema
+    })
   }),
   methods: z.object({
     initialize: z.object({

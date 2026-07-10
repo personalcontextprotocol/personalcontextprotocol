@@ -59,6 +59,7 @@ Conforming implementations SHOULD run fixture-backed tests that prove:
 - unsupported protocol versions are rejected
 - named defaults are applied consistently
 - scope-denied errors use the canonical error shape
+- authorization and consent profile payloads validate against shared schemas
 - JSON-RPC request and response envelopes are handled consistently
 
 ## Generated Artifact Rules

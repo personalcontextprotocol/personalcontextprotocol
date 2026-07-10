@@ -577,6 +577,222 @@
           ],
           "additionalProperties": false
         },
+        "profiles": {
+          "type": "object",
+          "properties": {
+            "authorizationConsent": {
+              "type": "object",
+              "properties": {
+                "authorizationRequest": {
+                  "type": "object",
+                  "properties": {
+                    "clientName": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 120
+                    },
+                    "clientUri": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "redirectUri": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "purpose": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 400
+                    },
+                    "scopes": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/PcpV01/properties/objects/properties/consentGrant/properties/scopes/items"
+                      },
+                      "minItems": 1,
+                      "maxItems": 12
+                    },
+                    "state": {
+                      "type": "string",
+                      "maxLength": 500
+                    },
+                    "codeChallenge": {
+                      "type": "string",
+                      "minLength": 32,
+                      "maxLength": 200
+                    },
+                    "codeChallengeMethod": {
+                      "type": "string",
+                      "const": "S256"
+                    }
+                  },
+                  "required": [
+                    "clientName",
+                    "redirectUri",
+                    "purpose",
+                    "scopes",
+                    "codeChallenge",
+                    "codeChallengeMethod"
+                  ],
+                  "additionalProperties": false
+                },
+                "authorizationCodeExchange": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 20
+                    },
+                    "codeVerifier": {
+                      "type": "string",
+                      "minLength": 43,
+                      "maxLength": 128
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "codeVerifier"
+                  ],
+                  "additionalProperties": false
+                },
+                "authorizationBindingResult": {
+                  "type": "object",
+                  "properties": {
+                    "client": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "name": {
+                          "$ref": "#/definitions/PcpV01/properties/profiles/properties/authorizationConsent/properties/authorizationBindingResult/properties/client/properties/id"
+                        },
+                        "clientUri": {
+                          "type": "string",
+                          "format": "uri"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "grant": {
+                      "$ref": "#/definitions/PcpV01/properties/objects/properties/consentGrant"
+                    },
+                    "pcp": {
+                      "type": "object",
+                      "properties": {
+                        "endpoint": {
+                          "$ref": "#/definitions/PcpV01/properties/profiles/properties/authorizationConsent/properties/authorizationBindingResult/properties/client/properties/id"
+                        },
+                        "authorization": {
+                          "type": "string",
+                          "const": "Bearer <token>"
+                        },
+                        "token": {
+                          "$ref": "#/definitions/PcpV01/properties/profiles/properties/authorizationConsent/properties/authorizationBindingResult/properties/client/properties/id"
+                        }
+                      },
+                      "required": [
+                        "endpoint",
+                        "authorization"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "client",
+                    "grant",
+                    "pcp"
+                  ],
+                  "additionalProperties": false
+                },
+                "authorizationDiscovery": {
+                  "type": "object",
+                  "properties": {
+                    "appBinding": {
+                      "type": "object",
+                      "properties": {
+                        "supported": {
+                          "type": "boolean",
+                          "const": true
+                        },
+                        "authorizeEndpoint": {
+                          "$ref": "#/definitions/PcpV01/properties/profiles/properties/authorizationConsent/properties/authorizationBindingResult/properties/client/properties/id"
+                        },
+                        "tokenEndpoint": {
+                          "$ref": "#/definitions/PcpV01/properties/profiles/properties/authorizationConsent/properties/authorizationBindingResult/properties/client/properties/id"
+                        },
+                        "grantManagementEndpoint": {
+                          "$ref": "#/definitions/PcpV01/properties/profiles/properties/authorizationConsent/properties/authorizationBindingResult/properties/client/properties/id"
+                        },
+                        "codeChallengeMethods": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "const": "S256"
+                          },
+                          "default": [
+                            "S256"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "supported"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "required": [
+                    "appBinding"
+                  ],
+                  "additionalProperties": false
+                },
+                "consentAccessPolicy": {
+                  "type": "object",
+                  "properties": {
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "all",
+                        "selected_nodes"
+                      ]
+                    },
+                    "nodeIds": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/PcpV01/properties/profiles/properties/authorizationConsent/properties/authorizationBindingResult/properties/client/properties/id"
+                      },
+                      "default": []
+                    },
+                    "memoryReviewRequired": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "mode"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "authorizationRequest",
+                "authorizationCodeExchange",
+                "authorizationBindingResult",
+                "authorizationDiscovery",
+                "consentAccessPolicy"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "authorizationConsent"
+          ],
+          "additionalProperties": false
+        },
         "methods": {
           "type": "object",
           "properties": {
@@ -637,6 +853,10 @@
                           "additionalProperties": false
                         },
                         "consent": {
+                          "type": "object",
+                          "additionalProperties": {}
+                        },
+                        "authorization": {
                           "type": "object",
                           "additionalProperties": {}
                         },
@@ -767,6 +987,9 @@
                             "enabled"
                           ],
                           "additionalProperties": false
+                        },
+                        "authorization": {
+                          "$ref": "#/definitions/PcpV01/properties/profiles/properties/authorizationConsent/properties/authorizationDiscovery"
                         }
                       },
                       "required": [
@@ -1328,6 +1551,7 @@
         "jsonRpcRequest",
         "jsonRpcResponse",
         "objects",
+        "profiles",
         "methods"
       ],
       "additionalProperties": false

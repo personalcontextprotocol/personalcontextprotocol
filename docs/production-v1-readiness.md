@@ -55,6 +55,11 @@ Before production V1, implementations should provide:
 - explicit retention and deletion behavior
 - audit log review and export tools
 
+The draft PCP [Authorization And Consent Profile](../specs/authorization-consent.md)
+is the intended starting point for these requirements. It still needs
+implementation reports, conformance fixtures, and production hardening before
+it can be treated as V1-stable.
+
 ## V1 Storage And Data Protection Requirements
 
 Before production V1, a production implementation should provide:
