@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { PCP_PROTOCOL_VERSION } from "@pcp/protocol";
 import { PcpClient } from "./PcpClient.js";
 
