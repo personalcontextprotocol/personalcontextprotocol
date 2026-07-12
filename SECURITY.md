@@ -51,7 +51,7 @@ In scope:
 Out of scope:
 
 - production deployment hardening not claimed by this repository
-- missing OAuth, hosted identity, or multi-tenant authorization
+- missing OAuth, hosted identity, or hosted multi-user/multi-tenant authorization
 - denial-of-service concerns for public hosting of the reference server
 - vulnerabilities that require modifying local demo seed data or source code
 

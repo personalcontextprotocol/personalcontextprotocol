@@ -29,9 +29,9 @@ run and inspected without hosted infrastructure.
 
 PCP v0.1 does not prescribe a hosted identity provider, OAuth profile,
 streaming transport, vector-search engine, LLM runtime, storage backend, or MCP
-SDK dependency. Implementations MAY add those pieces around the protocol if
-they preserve PCP's consent, scope, provenance, sensitivity, freshness, and
-audit requirements.
+SDK dependency. PCP implementations MAY provide those pieces if they preserve
+PCP's consent, scope, provenance, sensitivity, freshness, and audit
+requirements.
 
 ## Capability Summary
 

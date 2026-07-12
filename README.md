@@ -132,10 +132,11 @@ A PCP client can:
 
 ## What PCP v0.1 Does Not Include
 
-PCP v0.1 is intentionally small:
+PCP v0.1 and the bundled reference server are intentionally small:
 
 - no OAuth
 - no hosted identity system
+- no hosted multi-user or multi-tenant authorization service
 - no vector database
 - no LLM dependency
 - no streaming
@@ -145,9 +146,9 @@ PCP v0.1 is intentionally small:
 Those omissions keep the protocol understandable, testable, and easy to run
 locally.
 
-These are not deployment restrictions. A production implementation can add
-hosted identity, stronger auth, encrypted storage, retrieval systems, or model
-integrations around the protocol while preserving PCP's consent, scope,
+These are not deployment restrictions. A production PCP implementation can add
+hosted identity, stronger auth, encrypted storage, retrieval systems, model
+integrations, or owner-facing UI while preserving PCP's consent, scope,
 provenance, sensitivity, freshness, and audit requirements.
 
 ## Basic Request

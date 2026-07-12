@@ -40,15 +40,15 @@ A production or hosted implementation should add and verify:
 
 These are intentionally outside the v0.1 alpha reference server.
 
-## Protocol And Product Boundaries
+## Protocol And Implementation Boundaries
 
 PCP defines consent-scoped personal context exchange. It does not run an LLM,
 choose a model, provide vector search, replace MCP, or act as a hosted identity
 provider.
 
-Implementations can add retrieval systems, model integrations, hosted identity,
-or owner-facing products around PCP if they preserve the protocol's consent,
-scope, provenance, sensitivity, freshness, and audit requirements.
+PCP implementations can add retrieval systems, model integrations, hosted
+identity, or owner-facing UI if they preserve the protocol's consent, scope,
+provenance, sensitivity, freshness, and audit requirements.
 
 ## Release Relationship
 

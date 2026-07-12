@@ -133,12 +133,12 @@ pnpm seed
 
 ## Alpha Limitations
 
-The v0.1 reference implementation does not include OAuth, hosted identity,
-production token rotation, hosted multi-user or multi-tenant authorization,
-encryption-at-rest policy, vector search, an LLM, or a frontend UI. It uses demo
-bearer auth, seeded grants, local SQLite, and explicit scope checks so the
-protocol behavior stays inspectable and easy to run locally.
+The bundled PCP reference server in this repository does not include OAuth,
+hosted identity, production token rotation, hosted multi-user or multi-tenant
+authorization, encryption-at-rest policy, vector search, an LLM, or a frontend
+UI. It uses demo bearer auth, seeded grants, local SQLite, and explicit scope
+checks so the protocol behavior stays inspectable and easy to run locally.
 
-The PCP protocol is deployment-neutral. Production implementations can add those
-systems around the protocol while preserving consent, scope, provenance,
-sensitivity, freshness, and audit behavior.
+The PCP protocol is deployment-neutral. A production PCP implementation can add
+those systems while preserving consent, scope, provenance, sensitivity,
+freshness, and audit behavior.

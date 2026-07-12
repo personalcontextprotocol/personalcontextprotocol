@@ -66,7 +66,7 @@ The protocol model has five main actors and objects:
 - Context items hold structured personal context plus metadata.
 - ContextPacks return selected context for a particular request.
 
-The core v0.1 methods cover initialization, context request, context search,
+The v0.1 method set covers initialization, context request, context search,
 memory proposal, direct memory create/delete with an explicit write scope,
 consent listing, consent revocation, scoped audit listing, and context export.
 
@@ -149,7 +149,7 @@ LIMIT 20;
 
 The v0.1 audit model is deliberately simple. It demonstrates that auditability
 belongs in the protocol and implementation path, but it does not yet define a
-full operational audit review product.
+full operational audit review system.
 
 Clients with `context.audit.read` can call `pcp.audit.list` to inspect scoped
 audit entries visible under a grant.
@@ -159,9 +159,11 @@ audit entries visible under a grant.
 The repository includes:
 
 - TypeScript/Zod protocol schemas and generated JSON Schema.
+- Generated contract metadata and conformance fixtures.
 - A Fastify reference server with local SQLite persistence.
 - A TypeScript client and CLI.
-- A demo client and curl examples.
+- A Rust SDK crate.
+- A demo client, curl examples, and SDK examples.
 - Specs and plain-language documentation.
 
 The demo path is:
@@ -184,7 +186,7 @@ PCP v0.1 alpha does not prescribe:
 
 - OAuth or hosted identity
 - production token rotation
-- multi-tenant authorization
+- hosted multi-user or multi-tenant authorization
 - owner-facing grant management UI
 - vector retrieval
 - LLM integration
@@ -193,10 +195,11 @@ PCP v0.1 alpha does not prescribe:
 - distributed sync
 - compatibility guarantees beyond v0.1 alpha
 
-The current reference implementation should not be deployed as a public hosted
-service without substantial additional security, privacy, operational, and
-product work. That deployment warning is about this implementation, not about
-the protocol's ability to support hosted or self-hosted runtimes.
+The bundled reference server should not be deployed as a public hosted service
+without substantial additional security, privacy, operational, and application
+work.
+That deployment warning is about this implementation, not about the protocol's
+ability to support hosted or self-hosted runtimes.
 
 ## Future Work
 

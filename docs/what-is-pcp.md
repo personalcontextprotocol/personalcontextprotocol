@@ -53,7 +53,7 @@ use. The library records what was accessed.
 
 PCP is not a chatbot.
 
-PCP is not a memory product by itself.
+PCP is not a memory application by itself.
 
 PCP is not MCP.
 
