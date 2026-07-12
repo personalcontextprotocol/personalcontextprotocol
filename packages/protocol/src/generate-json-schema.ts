@@ -5,6 +5,13 @@ import { zodToJsonSchema } from "zod-to-json-schema";
 import { PCP_CONTRACT } from "./contract.js";
 import { JsonRpcRequestSchema, JsonRpcResponseSchema } from "./jsonrpc.js";
 import { AppClientSchema } from "./schemas/app-client.js";
+import {
+  ConsentAccessPolicySchema,
+  PcpAuthorizationBindingResultSchema,
+  PcpAuthorizationCodeExchangeSchema,
+  PcpAuthorizationDiscoverySchema,
+  PcpAuthorizationRequestSchema
+} from "./schemas/authorization-consent.js";
 import { AuditLogSchema } from "./schemas/audit-log.js";
 import { ConsentGrantSchema } from "./schemas/consent-grant.js";
 import { ContextItemSchema } from "./schemas/context-item.js";
@@ -15,6 +22,8 @@ import {
 } from "./schemas/initialize.js";
 import { MemoryProposalSchema } from "./schemas/memory-proposal.js";
 import {
+  AuditListParamsSchema,
+  AuditListResultSchema,
   ConsentListParamsSchema,
   ConsentListResultSchema,
   ConsentRevokeParamsSchema,
@@ -27,6 +36,8 @@ import {
   ExportCreateResultSchema,
   MemoryCreateParamsSchema,
   MemoryCreateResultSchema,
+  MemoryDeleteParamsSchema,
+  MemoryDeleteResultSchema,
   MemoryProposeParamsSchema,
   MemoryProposeResultSchema
 } from "./schemas/methods.js";
@@ -41,6 +52,15 @@ const PcpV01Schema = z.object({
     contextPack: ContextPackSchema,
     memoryProposal: MemoryProposalSchema,
     auditLog: AuditLogSchema
+  }),
+  profiles: z.object({
+    authorizationConsent: z.object({
+      authorizationRequest: PcpAuthorizationRequestSchema,
+      authorizationCodeExchange: PcpAuthorizationCodeExchangeSchema,
+      authorizationBindingResult: PcpAuthorizationBindingResultSchema,
+      authorizationDiscovery: PcpAuthorizationDiscoverySchema,
+      consentAccessPolicy: ConsentAccessPolicySchema
+    })
   }),
   methods: z.object({
     initialize: z.object({
@@ -63,6 +83,10 @@ const PcpV01Schema = z.object({
       params: MemoryCreateParamsSchema,
       result: MemoryCreateResultSchema
     }),
+    memoryDelete: z.object({
+      params: MemoryDeleteParamsSchema,
+      result: MemoryDeleteResultSchema
+    }),
     consentList: z.object({
       params: ConsentListParamsSchema,
       result: ConsentListResultSchema
@@ -70,6 +94,10 @@ const PcpV01Schema = z.object({
     consentRevoke: z.object({
       params: ConsentRevokeParamsSchema,
       result: ConsentRevokeResultSchema
+    }),
+    auditList: z.object({
+      params: AuditListParamsSchema,
+      result: AuditListResultSchema
     }),
     exportCreate: z.object({
       params: ExportCreateParamsSchema,
@@ -109,14 +137,20 @@ pub const PCP_PROTOCOL_VERSION: &str = "${PCP_CONTRACT.protocolVersion}";
 pub const PCP_JSON_RPC_VERSION: &str = "${PCP_CONTRACT.envelope.jsonrpc}";
 pub const PCP_HTTP_JSON_RPC_METHOD: &str = "${PCP_CONTRACT.transport.method}";
 pub const PCP_BEARER_AUTH_SCHEME: &str = "${authScheme}";
+pub const PCP_SERVER_INFO_NAME: &str = "${PCP_CONTRACT.referenceServer.info.name}";
+pub const PCP_SERVER_INFO_VERSION: &str = "${PCP_CONTRACT.referenceServer.info.version}";
+pub const PCP_SERVER_INFO_DESCRIPTION: &str = "${PCP_CONTRACT.referenceServer.info.description}";
+pub const PCP_SERVER_INSTRUCTIONS: &str = "${PCP_CONTRACT.referenceServer.instructions}";
 
 pub const PCP_METHOD_INITIALIZE: &str = "${methods.initialize}";
 pub const PCP_METHOD_CONTEXT_REQUEST: &str = "${methods.contextRequest}";
 pub const PCP_METHOD_CONTEXT_SEARCH: &str = "${methods.contextSearch}";
 pub const PCP_METHOD_MEMORY_PROPOSE: &str = "${methods.memoryPropose}";
 pub const PCP_METHOD_MEMORY_CREATE: &str = "${methods.memoryCreate}";
+pub const PCP_METHOD_MEMORY_DELETE: &str = "${methods.memoryDelete}";
 pub const PCP_METHOD_CONSENT_LIST: &str = "${methods.consentList}";
 pub const PCP_METHOD_CONSENT_REVOKE: &str = "${methods.consentRevoke}";
+pub const PCP_METHOD_AUDIT_LIST: &str = "${methods.auditList}";
 pub const PCP_METHOD_EXPORT_CREATE: &str = "${methods.exportCreate}";
 `;
 }

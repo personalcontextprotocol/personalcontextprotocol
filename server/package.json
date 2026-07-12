@@ -1,18 +1,19 @@
 {
   "name": "@pcp/server",
   "version": "0.1.0",
-  "description": "PCP v0.1 alpha local-first reference server",
+  "private": true,
+  "description": "PCP v0.1 alpha reference server for local development and protocol review",
   "license": "MIT",
   "type": "module",
-  "author": "PCP maintainers (replace before publication)",
+  "author": "PCP maintainers",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_ORG/pcp.git",
+    "url": "https://github.com/gitxpress/pcp.git",
     "directory": "server"
   },
-  "homepage": "https://github.com/YOUR_ORG/pcp/tree/main/server",
+  "homepage": "https://github.com/gitxpress/pcp/tree/main/server",
   "bugs": {
-    "url": "https://github.com/YOUR_ORG/pcp/issues"
+    "url": "https://github.com/gitxpress/pcp/issues"
   },
   "keywords": [
     "personal-context",
@@ -25,6 +26,9 @@
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "dev": "tsx src/index.ts",

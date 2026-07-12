@@ -5,6 +5,7 @@ import {
   PCP_HTTP_JSON_RPC_METHOD,
   PCP_METHODS,
   PCP_METHOD_REGISTRY,
+  type AuditListParams,
   type ConsentListParams,
   type ConsentRevokeParams,
   type ContextRequestParams,
@@ -17,6 +18,7 @@ import {
   type JsonRpcResponse,
   type JsonRpcSuccessResponse,
   type MemoryCreateParams,
+  type MemoryDeleteParams,
   type MemoryProposeParams,
   type PcpMethodName,
   type PcpMethodSpec
@@ -187,12 +189,20 @@ export class PcpClient {
     return this.request(PCP_METHODS.memoryCreate, params);
   }
 
+  deleteMemory(params: MemoryDeleteParams) {
+    return this.request(PCP_METHODS.memoryDelete, params);
+  }
+
   listConsent(params: ConsentListParams = {}) {
     return this.request(PCP_METHODS.consentList, params);
   }
 
   revokeConsent(params: ConsentRevokeParams) {
     return this.request(PCP_METHODS.consentRevoke, params);
+  }
+
+  listAudit(params: AuditListParams) {
+    return this.request(PCP_METHODS.auditList, params);
   }
 
   createExport(params: ExportCreateParams) {

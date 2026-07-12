@@ -3,7 +3,7 @@
   "id": "conformance-context-request-1",
   "method": "pcp.context.request",
   "params": {
-    "grantId": "grant_demo_codex",
+    "grantId": "grant_demo_assistant",
     "purpose": "Exercise PCP v0.1 context request conformance",
     "task": "Request scoped project context",
     "contextTypes": ["Project", "DecisionHistory"]

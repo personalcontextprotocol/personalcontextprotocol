@@ -9,9 +9,9 @@ curl -s http://127.0.0.1:8787/pcp \
     "id": "2",
     "method": "pcp.context.request",
     "params": {
-      "grantId": "grant_demo_codex",
-      "purpose": "Help the user continue PCP design and implementation",
-      "task": "Implement PCP v0.1 reference server",
+      "grantId": "grant_demo_assistant",
+      "purpose": "Help the user prepare for a planning session",
+      "task": "Summarize current goals, preferences, and relevant decisions",
       "contextTypes": ["UserProfile", "Project", "Preference", "Goal", "DecisionHistory", "CommunicationStyle", "MemoryItem"],
       "maxItems": 20,
       "freshnessPreference": "recent_first",

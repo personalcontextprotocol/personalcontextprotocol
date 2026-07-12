@@ -11,10 +11,10 @@ curl -s http://127.0.0.1:8787/pcp \
     "params": {
       "protocolVersion": "2026-06-24",
       "clientInfo": {
-        "id": "codex-local",
-        "name": "Codex Local",
+        "id": "sample-assistant",
+        "name": "Sample Assistant",
         "version": "0.1.0",
-        "description": "Local coding assistant",
+        "description": "Local assistant demo",
         "type": "local_cli"
       },
       "capabilities": {

@@ -1,0 +1,10 @@
+{
+  "clientName": "Sample Assistant",
+  "clientUri": "https://assistant.example.com",
+  "redirectUri": "http://127.0.0.1:45678/callback",
+  "purpose": "Retrieve task-relevant personal context with owner consent.",
+  "scopes": ["context.search", "memory.write", "context.audit.read"],
+  "state": "setup-state",
+  "codeChallenge": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "codeChallengeMethod": "S256"
+}

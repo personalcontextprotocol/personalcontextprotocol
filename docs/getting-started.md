@@ -3,8 +3,9 @@
 This guide gets the local PCP v0.1 alpha reference implementation running on
 your machine.
 
-The reference server is local-first. It is useful for protocol review,
-development, and demos, but it is not production authentication infrastructure.
+The reference server is configured for local development and protocol review. It
+is useful for development and demos, but it is not production authentication
+infrastructure.
 
 ## Requirements
 
@@ -46,8 +47,8 @@ This creates a local SQLite database at `.pcp/pcp.sqlite`.
 The seeded demo includes:
 
 - user `user_demo`
-- client `codex-local`
-- grant `grant_demo_codex`
+- client `sample-assistant`
+- grant `grant_demo_assistant`
 - several context items about PCP
 
 ## 4. Start the Server
@@ -132,6 +133,12 @@ pnpm seed
 
 ## Alpha Limitations
 
-PCP v0.1 does not include OAuth, hosted identity, production token rotation,
-multi-tenant authorization, encryption-at-rest policy, vector search, an LLM, or
-a frontend UI. Those omissions keep the proposal inspectable and local-first.
+The bundled PCP reference server in this repository does not include OAuth,
+hosted identity, production token rotation, hosted multi-user or multi-tenant
+authorization, encryption-at-rest policy, vector search, an LLM, or a frontend
+UI. It uses demo bearer auth, seeded grants, local SQLite, and explicit scope
+checks so the protocol behavior stays inspectable and easy to run locally.
+
+The PCP protocol is deployment-neutral. A production PCP implementation can add
+those systems while preserving consent, scope, provenance, sensitivity,
+freshness, and audit behavior.

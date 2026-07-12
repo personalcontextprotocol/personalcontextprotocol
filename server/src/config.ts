@@ -17,6 +17,6 @@ export function loadConfig(env: NodeJS.ProcessEnv = process.env): ServerConfig {
       .split(",")
       .map((origin) => origin.trim())
       .filter(Boolean),
-    defaultClientId: env.PCP_DEFAULT_CLIENT_ID ?? "codex-local"
+    defaultClientId: env.PCP_DEFAULT_CLIENT_ID ?? "sample-assistant"
   };
 }

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { PCP_PROTOCOL_VERSION } from "@pcp/protocol";
 import { PcpClient } from "./PcpClient.js";
 
@@ -7,17 +9,17 @@ const command = process.argv[2] ?? "initialize";
 
 const client = new PcpClient({ endpoint, token });
 
-const grantId = process.env.PCP_GRANT_ID ?? "grant_demo_codex";
+const grantId = process.env.PCP_GRANT_ID ?? "grant_demo_assistant";
 
 const commands: Record<string, () => Promise<unknown>> = {
   initialize: () =>
     client.initialize({
       protocolVersion: PCP_PROTOCOL_VERSION,
       clientInfo: {
-        id: "codex-local",
-        name: "Codex Local",
+        id: "sample-assistant",
+        name: "Sample Assistant",
         version: "0.1.0",
-        description: "Local coding assistant",
+        description: "Local assistant demo",
         type: "local_cli"
       },
       capabilities: {
@@ -28,8 +30,8 @@ const commands: Record<string, () => Promise<unknown>> = {
   context: () =>
     client.requestContext({
       grantId,
-      purpose: "Help the user continue PCP design and implementation",
-      task: "Implement PCP v0.1 reference server",
+      purpose: "Help the user prepare for a planning session",
+      task: "Summarize current goals, preferences, and relevant decisions",
       contextTypes: [
         "UserProfile",
         "Project",
@@ -47,7 +49,7 @@ const commands: Record<string, () => Promise<unknown>> = {
   search: () =>
     client.searchContext({
       grantId,
-      query: process.argv.slice(3).join(" ") || "PCP protocol design",
+      query: process.argv.slice(3).join(" ") || "planning decisions",
       contextTypes: ["Project", "DecisionHistory", "MemoryItem"],
       limit: 10
     }),
@@ -57,14 +59,14 @@ const commands: Record<string, () => Promise<unknown>> = {
       proposedItem: {
         type: "DecisionHistory",
         content: {
-          text: "The user decided PCP v0.1 should use JSON-RPC over HTTP with scoped ContextPacks, consent grants, and memory proposals."
+          text: "The user wants planning summaries to separate confirmed facts from assumptions."
         },
-        tags: ["pcp", "protocol", "decision"],
+        tags: ["planning", "decision"],
         confidence: 0.9,
         sensitivity: "low",
         source: {
           type: "client_proposal",
-          origin: "codex-local",
+          origin: "sample-assistant",
           method: "explicit_conversation_summary",
           capturedAt: new Date().toISOString()
         },
@@ -73,9 +75,9 @@ const commands: Record<string, () => Promise<unknown>> = {
           status: "fresh"
         }
       },
-      reason: "This decision is useful for future PCP implementation continuity."
+      reason: "This planning preference may be useful in future sessions."
     }),
-  consent: () => client.listConsent({ clientId: "codex-local" }),
+  consent: () => client.listConsent({ clientId: "sample-assistant" }),
   export: () => client.createExport({ grantId, format: "json" })
 };
 

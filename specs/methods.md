@@ -3,6 +3,9 @@
 All methods use JSON-RPC 2.0 envelopes. This page documents the `params` and
 `result` payloads.
 
+Method behavior described as "reference server" behavior is not a protocol
+restriction unless the canonical schema or this specification says it is.
+
 ## `initialize`
 
 Negotiates protocol version and discovers server capabilities.
@@ -13,10 +16,10 @@ Negotiates protocol version and discovers server capabilities.
 {
   "protocolVersion": "2026-06-24",
   "clientInfo": {
-    "id": "codex-local",
-    "name": "Codex Local",
+    "id": "sample-assistant",
+    "name": "Sample Assistant",
     "version": "0.1.0",
-    "description": "Local coding assistant",
+    "description": "Local assistant demo",
     "type": "local_cli"
   },
   "capabilities": {
@@ -72,9 +75,9 @@ Required scope: `context.read`
 
 ```json
 {
-  "grantId": "grant_demo_codex",
-  "purpose": "Help the user continue PCP design and implementation",
-  "task": "Implement PCP v0.1 reference server",
+  "grantId": "grant_demo_assistant",
+  "purpose": "Help the user prepare for a planning session",
+  "task": "Summarize current goals, preferences, and relevant decisions",
   "contextTypes": ["Project", "DecisionHistory", "MemoryItem"],
   "maxItems": 20,
   "freshnessPreference": "recent_first",
@@ -96,9 +99,9 @@ Required scope: `context.read`
   "contextPack": {
     "id": "context-pack-id",
     "userId": "user_demo",
-    "clientId": "codex-local",
-    "grantId": "grant_demo_codex",
-    "purpose": "Help the user continue PCP design and implementation",
+    "clientId": "sample-assistant",
+    "grantId": "grant_demo_assistant",
+    "purpose": "Help the user prepare for a planning session",
     "generatedAt": "2026-06-24T00:00:00.000Z",
     "expiresAt": "2026-06-24T01:00:00.000Z",
     "items": [],
@@ -121,8 +124,8 @@ Required scope: `context.search`
 
 ```json
 {
-  "grantId": "grant_demo_codex",
-  "query": "PCP protocol design",
+  "grantId": "grant_demo_assistant",
+  "query": "planning decisions",
   "contextTypes": ["Project", "DecisionHistory", "MemoryItem"],
   "limit": 10
 }
@@ -148,18 +151,18 @@ Required scope: `memory.propose`
 
 ```json
 {
-  "grantId": "grant_demo_codex",
+  "grantId": "grant_demo_assistant",
   "proposedItem": {
     "type": "DecisionHistory",
     "content": {
-      "text": "The user decided PCP v0.1 should use JSON-RPC over HTTP with scoped ContextPacks, consent grants, and memory proposals."
+      "text": "The user wants planning summaries to separate confirmed facts from assumptions."
     },
-    "tags": ["pcp", "protocol", "decision"],
+    "tags": ["planning", "decision"],
     "confidence": 0.9,
     "sensitivity": "low",
     "source": {
       "type": "client_proposal",
-      "origin": "codex-local",
+      "origin": "sample-assistant",
       "method": "explicit_conversation_summary",
       "capturedAt": "2026-06-24T00:00:00.000Z"
     },
@@ -168,7 +171,7 @@ Required scope: `memory.propose`
       "status": "fresh"
     }
   },
-  "reason": "This decision is useful for future PCP implementation continuity."
+  "reason": "This planning preference may be useful in future sessions."
 }
 ```
 
@@ -190,13 +193,16 @@ Creates a ContextItem directly.
 
 Required scope: `memory.write`
 
-The reference server allows this only with the demo admin bearer token.
+Protocol requirement: the grant must include `memory.write`.
+
+Reference server note: the local reference server also requires the demo admin
+bearer token for direct memory creation.
 
 ### Params
 
 ```json
 {
-  "grantId": "grant_demo_codex",
+  "grantId": "grant_demo_assistant",
   "item": {
     "type": "MemoryItem",
     "content": {
@@ -247,6 +253,55 @@ The reference server allows this only with the demo admin bearer token.
 }
 ```
 
+## `pcp.memory.delete`
+
+Deletes an existing ContextItem.
+
+Required scope: `memory.write`
+
+Protocol requirement: the grant must include `memory.write`.
+
+Reference server note: the local reference server also requires the demo admin
+bearer token for direct memory deletion.
+
+### Params
+
+```json
+{
+  "grantId": "grant_demo_assistant",
+  "itemId": "context-item-id"
+}
+```
+
+### Result
+
+```json
+{
+  "item": {
+    "id": "context-item-id",
+    "userId": "user_demo",
+    "type": "MemoryItem",
+    "content": {
+      "text": "A directly created memory."
+    },
+    "tags": ["demo"],
+    "source": {
+      "type": "manual_user_entry",
+      "origin": "local-admin",
+      "method": "demo",
+      "capturedAt": "2026-06-24T00:00:00.000Z"
+    },
+    "confidence": 0.8,
+    "freshness": {
+      "status": "fresh"
+    },
+    "sensitivity": "low",
+    "createdAt": "2026-06-24T00:00:00.000Z",
+    "updatedAt": "2026-06-24T00:00:00.000Z"
+  }
+}
+```
+
 ## `pcp.consent.list`
 
 Returns grants for the authenticated client.
@@ -257,7 +312,7 @@ Required scope: `consent.read`
 
 ```json
 {
-  "clientId": "codex-local"
+  "clientId": "sample-assistant"
 }
 ```
 
@@ -279,7 +334,7 @@ Required scope: `consent.revoke`
 
 ```json
 {
-  "grantId": "grant_demo_codex"
+  "grantId": "grant_demo_assistant"
 }
 ```
 
@@ -288,13 +343,45 @@ Required scope: `consent.revoke`
 ```json
 {
   "grant": {
-    "id": "grant_demo_codex",
+    "id": "grant_demo_assistant",
     "status": "revoked"
   }
 }
 ```
 
 The real result includes the full `ConsentGrant`.
+
+## `pcp.audit.list`
+
+Lists audit entries visible under a grant.
+
+Required scope: `context.audit.read`
+
+### Params
+
+```json
+{
+  "grantId": "grant_demo_assistant",
+  "clientId": "sample-assistant",
+  "actions": ["context.requested", "context.searched"],
+  "results": ["success"],
+  "resourceId": "context-pack-id",
+  "since": "2026-06-24T00:00:00.000Z",
+  "until": "2026-06-25T00:00:00.000Z",
+  "limit": 100
+}
+```
+
+All filters except `grantId` are optional. The default `limit` is `100`.
+
+### Result
+
+```json
+{
+  "logs": [],
+  "total": 0
+}
+```
 
 ## `pcp.export.create`
 
@@ -306,7 +393,7 @@ Required scope: `context.export`
 
 ```json
 {
-  "grantId": "grant_demo_codex",
+  "grantId": "grant_demo_assistant",
   "format": "json",
   "contextTypes": ["Project", "DecisionHistory"]
 }

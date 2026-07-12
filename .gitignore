@@ -43,3 +43,6 @@ yarn-error.log*
 tmp/
 temp/
 .cache/
+
+# Local agent workflow notes
+AGENTS.md

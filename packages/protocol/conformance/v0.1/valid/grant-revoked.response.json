@@ -1,0 +1,11 @@
+{
+  "jsonrpc": "2.0",
+  "id": "conformance-revoked-1",
+  "error": {
+    "code": -32003,
+    "message": "Consent grant is revoked",
+    "data": {
+      "grantId": "grant_sample_assistant"
+    }
+  }
+}

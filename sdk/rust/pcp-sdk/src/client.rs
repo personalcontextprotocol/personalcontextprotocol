@@ -9,10 +9,11 @@ use crate::contract::{contract, method_name, PcpMethod};
 use crate::error::{PcpProtocolError, PcpSdkError, Result};
 use crate::protocol::{JsonRpcId, JsonRpcRequest, JsonRpcResponse};
 use crate::types::{
-    ConsentListParams, ConsentListResult, ConsentRevokeParams, ConsentRevokeResult,
-    ContextRequestParams, ContextRequestResult, ContextSearchParams, ContextSearchResult,
-    ExportCreateParams, ExportCreateResult, InitializeParams, InitializeResult, MemoryCreateParams,
-    MemoryCreateResult, MemoryProposeParams, MemoryProposeResult,
+    AuditListParams, AuditListResult, ConsentListParams, ConsentListResult, ConsentRevokeParams,
+    ConsentRevokeResult, ContextRequestParams, ContextRequestResult, ContextSearchParams,
+    ContextSearchResult, ExportCreateParams, ExportCreateResult, InitializeParams,
+    InitializeResult, MemoryCreateParams, MemoryCreateResult, MemoryDeleteParams,
+    MemoryDeleteResult, MemoryProposeParams, MemoryProposeResult,
 };
 
 pub trait PcpTransport {
@@ -83,12 +84,20 @@ where
         self.request(PcpMethod::MemoryCreate, params).await
     }
 
+    pub async fn delete_memory(&self, params: MemoryDeleteParams) -> Result<MemoryDeleteResult> {
+        self.request(PcpMethod::MemoryDelete, params).await
+    }
+
     pub async fn list_consent(&self, params: ConsentListParams) -> Result<ConsentListResult> {
         self.request(PcpMethod::ConsentList, params).await
     }
 
     pub async fn revoke_consent(&self, params: ConsentRevokeParams) -> Result<ConsentRevokeResult> {
         self.request(PcpMethod::ConsentRevoke, params).await
+    }
+
+    pub async fn list_audit(&self, params: AuditListParams) -> Result<AuditListResult> {
+        self.request(PcpMethod::AuditList, params).await
     }
 
     pub async fn create_export(&self, params: ExportCreateParams) -> Result<ExportCreateResult> {

@@ -11,7 +11,9 @@ import {
   PCP_DEFAULTS,
   PCP_METHODS,
   PCP_PROTOCOL_VERSION,
-  PCP_CONTRACT
+  PCP_CONTRACT,
+  PcpAuthorizationCodeExchangeSchema,
+  PcpAuthorizationRequestSchema
 } from "../src/index.js";
 
 const testDir = dirname(fileURLToPath(import.meta.url));
@@ -68,6 +70,31 @@ describe("PCP v0.1 conformance fixtures", () => {
       await readFixture("valid/scope-denied.response.json")
     );
     expect("error" in response && response.error.code).toBe(-32002);
+  });
+
+  it("accepts authorization profile fixtures", async () => {
+    PcpAuthorizationRequestSchema.parse(
+      await readFixture("valid/authorization-request.json")
+    );
+    PcpAuthorizationCodeExchangeSchema.parse(
+      await readFixture("valid/authorization-code-exchange.json")
+    );
+  });
+
+  it("accepts authorization and consent denial fixtures", async () => {
+    const revoked = JsonRpcResponseSchema.parse(
+      await readFixture("valid/grant-revoked.response.json")
+    );
+    const expired = JsonRpcResponseSchema.parse(
+      await readFixture("valid/grant-expired.response.json")
+    );
+    const mismatch = JsonRpcResponseSchema.parse(
+      await readFixture("valid/grant-client-mismatch.response.json")
+    );
+
+    expect("error" in revoked && revoked.error.code).toBe(-32003);
+    expect("error" in expired && expired.error.code).toBe(-32004);
+    expect("error" in mismatch && mismatch.error.code).toBe(-32001);
   });
 
   it("rejects initialize requests with unsupported protocol versions", async () => {

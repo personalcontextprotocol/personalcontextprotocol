@@ -2,8 +2,8 @@
 
 PCP audit logs make context access inspectable.
 
-The server should write audit entries for meaningful reads, writes, denials,
-and exports.
+Servers MUST write audit entries for meaningful reads, writes, denials, grant
+changes, audit listing, and exports.
 
 ## Audit Actions
 
@@ -14,8 +14,10 @@ Allowed actions:
 - `context.searched`
 - `memory.proposed`
 - `memory.created`
+- `memory.deleted`
 - `consent.listed`
 - `consent.revoked`
+- `audit.listed`
 - `export.created`
 - `auth.denied`
 
@@ -33,8 +35,8 @@ Allowed results:
 {
   "id": "audit-id",
   "userId": "user_demo",
-  "clientId": "codex-local",
-  "grantId": "grant_demo_codex",
+  "clientId": "sample-assistant",
+  "grantId": "grant_demo_assistant",
   "action": "context.returned",
   "scope": "context.read",
   "resourceId": "context-pack-id",
@@ -48,7 +50,7 @@ Allowed results:
 
 ## Reference Server Storage
 
-The reference server stores audit logs in SQLite table:
+The reference server stores audit logs in the SQLite table:
 
 ```text
 audit_logs

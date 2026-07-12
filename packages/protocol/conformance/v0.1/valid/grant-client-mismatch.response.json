@@ -1,0 +1,12 @@
+{
+  "jsonrpc": "2.0",
+  "id": "conformance-mismatch-1",
+  "error": {
+    "code": -32001,
+    "message": "Grant is not bound to this PCP app",
+    "data": {
+      "grantId": "grant_sample_assistant",
+      "clientId": "client_other_app"
+    }
+  }
+}

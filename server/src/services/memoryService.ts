@@ -7,6 +7,7 @@ import type {
   NewContextItem
 } from "@pcp/protocol";
 import type { PcpDatabase } from "../db/client.js";
+import { rowToContextItem } from "../db/client.js";
 
 export class MemoryService {
   constructor(private readonly db: PcpDatabase) {}
@@ -75,5 +76,20 @@ export class MemoryService {
       );
 
     return contextItem;
+  }
+
+  delete(grant: ConsentGrant, itemId: string): ContextItem | null {
+    const row = this.db
+      .prepare("SELECT * FROM context_items WHERE id = ? AND user_id = ?")
+      .get(itemId, grant.userId) as Record<string, unknown> | undefined;
+    if (!row) {
+      return null;
+    }
+
+    const item = rowToContextItem(row);
+    this.db
+      .prepare("DELETE FROM context_items WHERE id = ? AND user_id = ?")
+      .run(itemId, grant.userId);
+    return item;
   }
 }

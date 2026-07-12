@@ -66,9 +66,9 @@ The protocol model has five main actors and objects:
 - Context items hold structured personal context plus metadata.
 - ContextPacks return selected context for a particular request.
 
-The core v0.1 methods cover initialization, context request, context search,
-memory proposal, direct memory creation with an explicit write scope, consent
-listing, consent revocation, and context export.
+The v0.1 method set covers initialization, context request, context search,
+memory proposal, direct memory create/delete with an explicit write scope,
+consent listing, consent revocation, scoped audit listing, and context export.
 
 ## Consent and Scopes
 
@@ -80,11 +80,12 @@ The v0.1 scope model is intentionally small:
 
 - `context.read`
 - `context.search`
+- `context.audit.read`
 - `memory.propose`
 - `memory.write`
 - `consent.read`
 - `consent.revoke`
-- `export.create`
+- `context.export`
 
 This is not a complete production authorization model. It is a minimum shape for
 reviewing whether context requests, memory proposals, and exports can be
@@ -121,9 +122,9 @@ PCP separates memory proposals from direct memory writes.
 proposal is stored as pending. This supports review workflows where an owner or
 trusted system can decide whether the proposal should become durable memory.
 
-`pcp.memory.create` exists for clients with the explicit `memory.write` scope.
-Production implementations should be careful with this scope because it allows a
-client to write directly into the personal context store.
+`pcp.memory.create` and `pcp.memory.delete` exist for clients with the explicit
+`memory.write` scope. Production implementations should be careful with this
+scope because it allows a client to mutate the personal context store directly.
 
 ## Auditability
 
@@ -148,16 +149,21 @@ LIMIT 20;
 
 The v0.1 audit model is deliberately simple. It demonstrates that auditability
 belongs in the protocol and implementation path, but it does not yet define a
-full operational audit review product.
+full operational audit review system.
+
+Clients with `context.audit.read` can call `pcp.audit.list` to inspect scoped
+audit entries visible under a grant.
 
 ## Reference Implementation
 
 The repository includes:
 
 - TypeScript/Zod protocol schemas and generated JSON Schema.
+- Generated contract metadata and conformance fixtures.
 - A Fastify reference server with local SQLite persistence.
 - A TypeScript client and CLI.
-- A demo client and curl examples.
+- A Rust SDK crate.
+- A demo client, curl examples, and SDK examples.
 - Specs and plain-language documentation.
 
 The demo path is:
@@ -171,16 +177,16 @@ pnpm audit:logs
 ```
 
 The reference server binds to `127.0.0.1` by default and uses a demo bearer
-token. It is local-first infrastructure for protocol review, not production
-authentication.
+token. It is configured for protocol review and local development, not
+production authentication.
 
 ## Limitations
 
-PCP v0.1 alpha does not include:
+PCP v0.1 alpha does not prescribe:
 
 - OAuth or hosted identity
 - production token rotation
-- multi-tenant authorization
+- hosted multi-user or multi-tenant authorization
 - owner-facing grant management UI
 - vector retrieval
 - LLM integration
@@ -189,8 +195,11 @@ PCP v0.1 alpha does not include:
 - distributed sync
 - compatibility guarantees beyond v0.1 alpha
 
-The current implementation should not be deployed as a public hosted service
-without substantial additional security, privacy, operational, and product work.
+The bundled reference server should not be deployed as a public hosted service
+without substantial additional security, privacy, operational, and application
+work.
+That deployment warning is about this implementation, not about the protocol's
+ability to support hosted or self-hosted runtimes.
 
 ## Future Work
 
@@ -202,7 +211,7 @@ Open areas for future versions include:
 - richer freshness and expiration semantics
 - memory proposal review lifecycle
 - interoperability profiles with MCP-enabled applications
-- conformance tests
+- broader conformance test coverage across independent implementations
 - privacy-preserving sync and backup models
 - clearer migration rules between protocol versions
 

@@ -5,14 +5,14 @@
   "description": "Personal Context Protocol v0.1 alpha open protocol proposal and reference implementation",
   "license": "MIT",
   "type": "module",
-  "author": "PCP maintainers (replace before publication)",
+  "author": "PCP maintainers",
   "repository": {
     "type": "git",
-    "url": "https://github.com/YOUR_ORG/pcp.git"
+    "url": "https://github.com/gitxpress/pcp.git"
   },
-  "homepage": "https://github.com/YOUR_ORG/pcp#readme",
+  "homepage": "https://github.com/gitxpress/pcp#readme",
   "bugs": {
-    "url": "https://github.com/YOUR_ORG/pcp/issues"
+    "url": "https://github.com/gitxpress/pcp/issues"
   },
   "keywords": [
     "personal-context",
@@ -35,6 +35,7 @@
     "dev": "pnpm --filter @pcp/server dev",
     "test": "pnpm -r test",
     "typecheck": "pnpm -r typecheck",
+    "check:release": "pnpm typecheck && pnpm build && pnpm test && pnpm check:schema && pnpm check:sdk-contracts",
     "generate:schema": "pnpm --filter @pcp/protocol generate:schema",
     "check:schema": "node tools/check-generated-artifacts.mjs",
     "check:sdk-contracts": "node tools/verify-sdk-contracts.mjs",

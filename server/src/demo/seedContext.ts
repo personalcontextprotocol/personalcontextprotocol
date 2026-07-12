@@ -3,18 +3,18 @@ import type { AppClient, ConsentGrant, ContextItem } from "@pcp/protocol";
 const now = "2026-06-24T00:00:00.000Z";
 
 export const demoClient: AppClient = {
-  id: "codex-local",
-  name: "Codex Local",
+  id: "sample-assistant",
+  name: "Sample Assistant",
   version: "0.1.0",
-  description: "Local coding assistant",
+  description: "Local assistant demo",
   type: "local_cli",
   createdAt: now
 };
 
 export const demoGrant: ConsentGrant = {
-  id: "grant_demo_codex",
+  id: "grant_demo_assistant",
   userId: "user_demo",
-  clientId: "codex-local",
+  clientId: "sample-assistant",
   scopes: [
     "context.read",
     "context.search",
@@ -22,9 +22,10 @@ export const demoGrant: ConsentGrant = {
     "memory.write",
     "consent.read",
     "consent.revoke",
+    "context.audit.read",
     "context.export"
   ],
-  purpose: "Allow the local Codex client to help build PCP v0.1.",
+  purpose: "Allow the local demo assistant to request scoped personal context.",
   status: "active",
   createdAt: now,
   expiresAt: "2027-06-24T00:00:00.000Z"
@@ -32,13 +33,13 @@ export const demoGrant: ConsentGrant = {
 
 export const demoContextItems: ContextItem[] = [
   {
-    id: "ctx_project_pcp",
+    id: "ctx_project_planning",
     userId: "user_demo",
     type: "Project",
     content: {
-      text: "PCP is the Personal Context Protocol: an open protocol for connecting AI systems to user-owned personal context."
+      text: "The user is preparing a product planning session and wants the assistant to use only relevant, consent-scoped personal context."
     },
-    tags: ["pcp", "protocol", "project"],
+    tags: ["planning", "project"],
     source: {
       type: "system_seed",
       origin: "pcp-reference-server",
@@ -52,13 +53,13 @@ export const demoContextItems: ContextItem[] = [
     updatedAt: now
   },
   {
-    id: "ctx_decision_jsonrpc",
+    id: "ctx_decision_morning_reviews",
     userId: "user_demo",
     type: "DecisionHistory",
     content: {
-      text: "PCP v0.1 uses JSON-RPC 2.0 over one HTTP endpoint with a small initialization handshake and protocol version negotiation."
+      text: "The user decided that planning reviews should start with current goals, recent decisions, and open follow-up items."
     },
-    tags: ["pcp", "json-rpc", "decision"],
+    tags: ["planning", "decision"],
     source: {
       type: "system_seed",
       origin: "pcp-reference-server",
@@ -76,9 +77,9 @@ export const demoContextItems: ContextItem[] = [
     userId: "user_demo",
     type: "Preference",
     content: {
-      text: "Keep PCP v0.1 small and working: no OAuth, no streaming, no vector database, no LLM dependency, and no MCP SDK internals."
+      text: "The user prefers assistants to ask for the smallest useful amount of context and explain why it is needed."
     },
-    tags: ["pcp", "scope", "preference"],
+    tags: ["privacy", "preference"],
     source: {
       type: "system_seed",
       origin: "pcp-reference-server",
@@ -92,13 +93,13 @@ export const demoContextItems: ContextItem[] = [
     updatedAt: now
   },
   {
-    id: "ctx_goal_working_protocol",
+    id: "ctx_goal_launch_plan",
     userId: "user_demo",
     type: "Goal",
     content: {
-      text: "The immediate goal is a real working PCP v0.1 protocol package, reference server, example client, tests, docs, and demo seed data."
+      text: "The user wants a short launch plan that separates confirmed facts, assumptions, and tasks that still need owner approval."
     },
-    tags: ["pcp", "goal", "v0.1"],
+    tags: ["planning", "goal"],
     source: {
       type: "system_seed",
       origin: "pcp-reference-server",
@@ -116,7 +117,7 @@ export const demoContextItems: ContextItem[] = [
     userId: "user_demo",
     type: "CommunicationStyle",
     content: {
-      text: "The user prefers concise, pragmatic implementation updates with concrete verification rather than theoretical protocol discussion."
+      text: "The user prefers concise, practical responses that state concrete next steps and avoid unnecessary theory."
     },
     tags: ["communication", "preference"],
     source: {

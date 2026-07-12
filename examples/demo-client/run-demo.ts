@@ -6,15 +6,15 @@ const client = new PcpClient({
   token: process.env.PCP_DEMO_TOKEN ?? "pcp_demo_token"
 });
 
-const grantId = "grant_demo_codex";
+const grantId = "grant_demo_assistant";
 
 const initialize = await client.initialize({
   protocolVersion: PCP_PROTOCOL_VERSION,
   clientInfo: {
-    id: "codex-local",
-    name: "Codex Local",
+    id: "sample-assistant",
+    name: "Sample Assistant",
     version: "0.1.0",
-    description: "Local coding assistant",
+    description: "Local assistant demo",
     type: "local_cli"
   },
   capabilities: {
@@ -25,8 +25,8 @@ const initialize = await client.initialize({
 
 const context = await client.requestContext({
   grantId,
-  purpose: "Help the user continue PCP design and implementation",
-  task: "Implement PCP v0.1 reference server",
+  purpose: "Help the user prepare for a planning session",
+  task: "Summarize current goals, preferences, and relevant decisions",
   contextTypes: [
     "UserProfile",
     "Project",
@@ -44,7 +44,7 @@ const context = await client.requestContext({
 
 const search = await client.searchContext({
   grantId,
-  query: "PCP protocol design",
+  query: "planning decisions",
   contextTypes: ["Project", "DecisionHistory", "MemoryItem"],
   limit: 10
 });
@@ -54,9 +54,9 @@ const proposal = await client.proposeMemory({
   proposedItem: {
     type: "DecisionHistory",
     content: {
-      text: "PCP v0.1 has a working reference implementation with protocol schemas, a local server, a client, examples, and tests."
+      text: "The user wants planning summaries to separate confirmed facts from assumptions."
     },
-    tags: ["pcp", "implementation", "decision"],
+    tags: ["planning", "decision"],
     confidence: 0.9,
     sensitivity: "low",
     source: {
@@ -70,10 +70,10 @@ const proposal = await client.proposeMemory({
       status: "fresh"
     }
   },
-  reason: "This records the demo-confirmed implementation state."
+  reason: "This planning preference may be useful in future sessions."
 });
 
-const consent = await client.listConsent({ clientId: "codex-local" });
+const consent = await client.listConsent({ clientId: "sample-assistant" });
 const exported = await client.createExport({ grantId, format: "json" });
 
 console.log(

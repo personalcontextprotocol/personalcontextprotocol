@@ -4,7 +4,9 @@ import {
   PCP_DEFAULTS,
   PCP_HTTP_JSON_RPC_METHOD,
   PCP_METHODS,
-  PCP_PROTOCOL_VERSION
+  PCP_PROTOCOL_VERSION,
+  PCP_SERVER_INFO,
+  PCP_SERVER_INSTRUCTIONS
 } from "./constants.js";
 
 export const PCP_CONTRACT_ID = "pcp.v0.1" as const;
@@ -26,6 +28,10 @@ export const PCP_CONTRACT = {
     schemes: [PCP_BEARER_AUTH_SCHEME]
   },
   defaults: PCP_DEFAULTS,
+  referenceServer: {
+    info: PCP_SERVER_INFO,
+    instructions: PCP_SERVER_INSTRUCTIONS
+  },
   methods: PCP_METHODS,
   compatibility: {
     line: "v0.1-alpha",

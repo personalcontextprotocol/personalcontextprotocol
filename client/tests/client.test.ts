@@ -101,4 +101,52 @@ describe("PcpClient", () => {
       data: { requiredScope: "memory.write" }
     } satisfies Partial<PcpProtocolError>);
   });
+
+  it("exposes SDK helpers for delete and audit methods in the canonical contract", async () => {
+    const sentMethods: string[] = [];
+    const client = new PcpClient({
+      transport: {
+        send: async (request) => {
+          sentMethods.push(request.method);
+          if (request.method === PCP_METHODS.memoryDelete) {
+            return {
+              jsonrpc: JSON_RPC_VERSION,
+              id: request.id,
+              result: {
+                item: {
+                  id: "ctx_1",
+                  userId: "user_1",
+                  type: "MemoryItem",
+                  content: { text: "deleted item" },
+                  tags: [],
+                  source: {
+                    type: "manual_user_entry",
+                    origin: "test",
+                    method: "unit",
+                    capturedAt: "2026-07-04T00:00:00.000Z"
+                  },
+                  confidence: 1,
+                  freshness: { status: "fresh" },
+                  sensitivity: "low",
+                  createdAt: "2026-07-04T00:00:00.000Z",
+                  updatedAt: "2026-07-04T00:00:00.000Z"
+                }
+              }
+            };
+          }
+
+          return {
+            jsonrpc: JSON_RPC_VERSION,
+            id: request.id,
+            result: { logs: [], total: 0 }
+          };
+        }
+      }
+    });
+
+    await client.deleteMemory({ grantId: "grant_1", itemId: "ctx_1" });
+    await client.listAudit({ grantId: "grant_1", limit: 10 });
+
+    expect(sentMethods).toEqual([PCP_METHODS.memoryDelete, PCP_METHODS.auditList]);
+  });
 });

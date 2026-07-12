@@ -47,6 +47,10 @@ pub enum PermissionScope {
     ContextRead,
     #[serde(rename = "context.search")]
     ContextSearch,
+    #[serde(rename = "context.sync")]
+    ContextSync,
+    #[serde(rename = "context.audit.read")]
+    ContextAuditRead,
     #[serde(rename = "memory.propose")]
     MemoryPropose,
     #[serde(rename = "memory.write")]
@@ -55,6 +59,8 @@ pub enum PermissionScope {
     ConsentRead,
     #[serde(rename = "consent.revoke")]
     ConsentRevoke,
+    #[serde(rename = "grants.manage")]
+    GrantsManage,
     #[serde(rename = "context.export")]
     ContextExport,
 }
@@ -394,6 +400,18 @@ pub struct MemoryCreateResult {
     pub item: ContextItem,
 }
 
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct MemoryDeleteParams {
+    pub grant_id: String,
+    pub item_id: String,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct MemoryDeleteResult {
+    pub item: ContextItem,
+}
+
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct ConsentListParams {
@@ -415,6 +433,87 @@ pub struct ConsentRevokeParams {
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ConsentRevokeResult {
     pub grant: ConsentGrant,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AuditListParams {
+    pub grant_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub actions: Option<Vec<AuditAction>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub results: Option<Vec<AuditResult>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resource_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub since: Option<DateTime>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub until: Option<DateTime>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub limit: Option<u16>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+pub struct AuditListResult {
+    pub logs: Vec<AuditLog>,
+    pub total: u64,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct AuditLog {
+    pub id: String,
+    pub user_id: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub client_id: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub grant_id: Option<String>,
+    pub action: AuditAction,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub scope: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub resource_id: Option<String>,
+    pub timestamp: DateTime,
+    pub result: AuditResult,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub details: Option<serde_json::Map<String, serde_json::Value>>,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum AuditAction {
+    #[serde(rename = "context.requested")]
+    ContextRequested,
+    #[serde(rename = "context.returned")]
+    ContextReturned,
+    #[serde(rename = "context.searched")]
+    ContextSearched,
+    #[serde(rename = "memory.proposed")]
+    MemoryProposed,
+    #[serde(rename = "memory.created")]
+    MemoryCreated,
+    #[serde(rename = "memory.deleted")]
+    MemoryDeleted,
+    #[serde(rename = "consent.listed")]
+    ConsentListed,
+    #[serde(rename = "consent.revoked")]
+    ConsentRevoked,
+    #[serde(rename = "audit.listed")]
+    AuditListed,
+    #[serde(rename = "export.created")]
+    ExportCreated,
+    #[serde(rename = "auth.denied")]
+    AuthDenied,
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "lowercase")]
+pub enum AuditResult {
+    Success,
+    Denied,
+    Error,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]

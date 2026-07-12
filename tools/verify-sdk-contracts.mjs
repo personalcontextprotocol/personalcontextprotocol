@@ -12,13 +12,19 @@ const expectedRustConstants = {
   PCP_JSON_RPC_VERSION: contract.envelope.jsonrpc,
   PCP_HTTP_JSON_RPC_METHOD: contract.transport.method,
   PCP_BEARER_AUTH_SCHEME: contract.auth.schemes[0],
+  PCP_SERVER_INFO_NAME: contract.referenceServer.info.name,
+  PCP_SERVER_INFO_VERSION: contract.referenceServer.info.version,
+  PCP_SERVER_INFO_DESCRIPTION: contract.referenceServer.info.description,
+  PCP_SERVER_INSTRUCTIONS: contract.referenceServer.instructions,
   PCP_METHOD_INITIALIZE: contract.methods.initialize,
   PCP_METHOD_CONTEXT_REQUEST: contract.methods.contextRequest,
   PCP_METHOD_CONTEXT_SEARCH: contract.methods.contextSearch,
   PCP_METHOD_MEMORY_PROPOSE: contract.methods.memoryPropose,
   PCP_METHOD_MEMORY_CREATE: contract.methods.memoryCreate,
+  PCP_METHOD_MEMORY_DELETE: contract.methods.memoryDelete,
   PCP_METHOD_CONSENT_LIST: contract.methods.consentList,
   PCP_METHOD_CONSENT_REVOKE: contract.methods.consentRevoke,
+  PCP_METHOD_AUDIT_LIST: contract.methods.auditList,
   PCP_METHOD_EXPORT_CREATE: contract.methods.exportCreate
 };
 

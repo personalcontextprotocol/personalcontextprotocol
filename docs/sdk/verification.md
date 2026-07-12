@@ -1,13 +1,14 @@
 # SDK Verification Notes
 
-Last local verification: 2026-06-28.
+Last local verification: 2026-07-10.
 
 ## Passed Locally
 
 ```bash
 pnpm typecheck
-pnpm test
 pnpm build
+pnpm test
+pnpm check:schema
 pnpm check:sdk-contracts
 cargo fmt --all -- --check
 cargo build --workspace
@@ -23,10 +24,13 @@ through:
 
 The Rust SDK also exercises the same fixtures in
 `sdk/rust/pcp-sdk/tests/conformance.rs`.
+Its helper coverage verifies that every non-initialize v0.1 client method sends
+the canonical contract method name and deserializes a valid result shape.
 
 `pnpm check:sdk-contracts` verifies, without a Rust toolchain, that:
 
-- generated Rust contract constants match `pcp-v0.1.contract.json`
+- generated Rust contract constants, including method names and reference-server
+  initialize metadata, match `pcp-v0.1.contract.json`
 - shared conformance fixtures match the canonical contract
 - the context request fixture omits fields that must exercise named defaults
 - the Rust crate remains `publish = false`
@@ -35,17 +39,14 @@ The Rust SDK also exercises the same fixtures in
 
 ## Generated Artifacts
 
-`pnpm check:schema` regenerated `packages/protocol/schemas/pcp-v0.1.schema.json`
-`packages/protocol/schemas/pcp-v0.1.contract.json`, and
-`sdk/rust/pcp-sdk/src/generated_contract.rs`.
+`pnpm check:schema` regenerates and compares:
 
-In this uncommitted worktree, `pnpm check:schema` exits non-zero because the
-checked-in generated files intentionally differ from `HEAD`; the expected
-schema change is that JSON-RPC success responses now require `result`, and the
-Rust contract module is generated from the v0.1 contract metadata.
+- `packages/protocol/schemas/pcp-v0.1.schema.json`
+- `packages/protocol/schemas/pcp-v0.1.contract.json`
+- `sdk/rust/pcp-sdk/src/generated_contract.rs`
 
-After these changes are committed, CI should run the same command from a clean
-checkout.
+The check is content-based, so it works in an uncommitted worktree and fails
+only when checked-in generated artifacts do not match the canonical sources.
 
 ## Rust Toolchain
 

@@ -87,7 +87,7 @@ cargo test -p pcp-sdk
 The crate includes:
 
 - typed protocol models
-- async client methods for all v0.1 methods
+- async client methods for all v0.1 methods, including memory deletion and audit listing
 - ready JSON-RPC-over-HTTP transport
 - structured protocol and transport errors
 - generated contract and schema inclusion
@@ -153,5 +153,5 @@ SDKs must not:
 - silently retry with a different protocol version
 - invent hidden endpoint, token, grant, timeout, or identity defaults
 - accept invalid response shapes as successful results
-- claim production hosted-service security maturity for the local-first v0.1
-  reference implementation
+- claim production hosted-service security maturity for the v0.1 reference
+  implementation

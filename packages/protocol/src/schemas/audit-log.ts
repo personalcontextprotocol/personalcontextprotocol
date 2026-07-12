@@ -7,8 +7,10 @@ export const AuditActionSchema = z.enum([
   "context.searched",
   "memory.proposed",
   "memory.created",
+  "memory.deleted",
   "consent.listed",
   "consent.revoked",
+  "audit.listed",
   "export.created",
   "auth.denied"
 ]);

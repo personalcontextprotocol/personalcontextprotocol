@@ -1,29 +1,50 @@
 # PCP Documentation
 
-Use this page as the documentation map.
+This map routes each reader to the smallest useful set of pages.
 
-## Start Here
+## New to PCP
 
-- [What PCP Is](what-is-pcp.md): plain-language explanation
-- [Getting Started](getting-started.md): install, run, seed, demo
-- [How PCP Works](how-it-works.md): clients, grants, context, ContextPacks
-- [Glossary](glossary.md): terms used by the protocol
+Start here if you want the concept before the implementation.
 
-## For Developers
+- [What PCP Is](what-is-pcp.md): plain-language overview and boundaries
+- [How PCP Works](how-it-works.md): clients, grants, context items, and ContextPacks
+- [Glossary](glossary.md): protocol terms in one place
 
-- [Developer Guide](developer-guide.md): architecture and extension guide
-- [SDK Guide](sdk/index.md): Rust and TypeScript SDK integration guide
+## Trying the Reference Implementation
+
+Use these pages to run the local demo and inspect what happens.
+
+- [Getting Started](getting-started.md): install, seed, run, demo, and audit logs
 - [Troubleshooting](troubleshooting.md): common setup and runtime issues
-- [Whitepaper](../paper/pcp-v0.1-whitepaper.md): v0.1 technical narrative and limitations
-- [Method Reference](../specs/methods.md): exact method payloads
-- [Object Reference](../specs/objects.md): exact object shapes
-- [Protocol Transport](../specs/protocol.md): JSON-RPC and errors
+- [Examples](../specs/examples.md): curl and SDK examples
 
-## For Implementers
+## Building an AI Application
 
-- [PCP v0.1 Specification](../specs/pcp-v0.1.md)
-- [Lifecycle](../specs/lifecycle.md)
-- [Scopes](../specs/scopes.md)
-- [Security Model](../specs/security.md)
-- [Audit](../specs/audit.md)
-- [Examples](../specs/examples.md)
+Use these pages when your application wants to request personal context through
+PCP.
+
+- [SDK Guide](sdk/index.md): TypeScript and Rust SDK usage
+- [Method Reference](../specs/methods.md): request and response payloads
+- [Scopes](../specs/scopes.md): permissions required by each method
+- [Protocol Transport](../specs/protocol.md): JSON-RPC envelope and errors
+
+## Implementing PCP
+
+Use these pages when you are building a compatible server, SDK, or test suite.
+
+- [PCP v0.1 Specification](../specs/pcp-v0.1.md): normative v0.1 contract overview
+- [Specification Index](../specs/index.md): versioned public specification entry point
+- [Object Reference](../specs/objects.md): AppClient, ConsentGrant, ContextItem, ContextPack, MemoryProposal, and AuditLog
+- [Lifecycle](../specs/lifecycle.md): expected client and grant flow
+- [Security Model](../specs/security.md): protocol security requirements and reference-server controls
+- [Audit](../specs/audit.md): auditable actions and storage model
+- [Schema Reference](../specs/schema.md): schema source of truth, generated artifacts, and conformance fixtures
+- [Developer Guide](developer-guide.md): repository architecture and extension workflow
+
+## Reviewing the Proposal
+
+Use these pages to evaluate the protocol, its limits, and its release posture.
+
+- [Whitepaper](../paper/pcp-v0.1-whitepaper.md): technical narrative and limitations
+- [Production V1 Readiness](production-v1-readiness.md): remaining production and V1 gaps
+- [SDK Verification Notes](sdk/verification.md): SDK conformance status

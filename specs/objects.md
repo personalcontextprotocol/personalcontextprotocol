@@ -18,10 +18,10 @@ Represents an application asking for personal context.
 
 ```json
 {
-  "id": "codex-local",
-  "name": "Codex Local",
+  "id": "sample-assistant",
+  "name": "Sample Assistant",
   "version": "0.1.0",
-  "description": "Local coding assistant",
+  "description": "Local assistant demo",
   "type": "local_cli",
   "createdAt": "2026-06-24T00:00:00.000Z"
 }
@@ -42,11 +42,11 @@ Defines what a client can do.
 
 ```json
 {
-  "id": "grant_demo_codex",
+  "id": "grant_demo_assistant",
   "userId": "user_demo",
-  "clientId": "codex-local",
+  "clientId": "sample-assistant",
   "scopes": ["context.read", "context.search", "memory.propose"],
-  "purpose": "Allow the local Codex client to help build PCP v0.1.",
+  "purpose": "Allow the local demo assistant to request scoped personal context.",
   "status": "active",
   "createdAt": "2026-06-24T00:00:00.000Z",
   "expiresAt": "2027-06-24T00:00:00.000Z"
@@ -65,11 +65,17 @@ Allowed scopes:
 
 - `context.read`
 - `context.search`
+- `context.sync`
+- `context.audit.read`
 - `memory.propose`
 - `memory.write`
 - `consent.read`
 - `consent.revoke`
+- `grants.manage`
 - `context.export`
+
+`context.sync` and `grants.manage` are reserved in v0.1. The reference server
+does not expose sync profiles or owner-managed grant issuance methods.
 
 ## `ContextItem`
 
@@ -144,9 +150,9 @@ A scoped bundle of context returned to a client.
 {
   "id": "context-pack-id",
   "userId": "user_demo",
-  "clientId": "codex-local",
-  "grantId": "grant_demo_codex",
-  "purpose": "Help with PCP implementation",
+  "clientId": "sample-assistant",
+  "grantId": "grant_demo_assistant",
+  "purpose": "Help the user prepare for a planning session",
   "generatedAt": "2026-06-24T00:00:00.000Z",
   "expiresAt": "2026-06-24T01:00:00.000Z",
   "items": [],
@@ -166,8 +172,8 @@ A proposed context item that has not been accepted into memory yet.
 {
   "id": "proposal-id",
   "userId": "user_demo",
-  "clientId": "codex-local",
-  "grantId": "grant_demo_codex",
+  "clientId": "sample-assistant",
+  "grantId": "grant_demo_assistant",
   "proposedItem": {
     "type": "DecisionHistory",
     "content": {
@@ -176,7 +182,7 @@ A proposed context item that has not been accepted into memory yet.
     "tags": ["decision"],
     "source": {
       "type": "client_proposal",
-      "origin": "codex-local",
+      "origin": "sample-assistant",
       "method": "summary",
       "capturedAt": "2026-06-24T00:00:00.000Z"
     },
@@ -186,7 +192,7 @@ A proposed context item that has not been accepted into memory yet.
     },
     "sensitivity": "low"
   },
-  "reason": "Useful for future continuity.",
+  "reason": "This planning preference may be useful in future sessions.",
   "status": "pending",
   "createdAt": "2026-06-24T00:00:00.000Z"
 }
@@ -208,8 +214,8 @@ Records meaningful access, mutation, denial, and export events.
 {
   "id": "audit-id",
   "userId": "user_demo",
-  "clientId": "codex-local",
-  "grantId": "grant_demo_codex",
+  "clientId": "sample-assistant",
+  "grantId": "grant_demo_assistant",
   "action": "context.requested",
   "scope": "context.read",
   "resourceId": "context-pack-id",

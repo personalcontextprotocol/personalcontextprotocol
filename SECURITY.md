@@ -1,8 +1,8 @@
 # Security Policy
 
-PCP v0.1 alpha is an open protocol proposal and local-first reference
-implementation. It is intended for development, review, interoperability
-experiments, and protocol discussion.
+PCP v0.1 alpha is an open protocol proposal and reference implementation
+configured for local development and protocol review. It is intended for
+development, review, interoperability experiments, and protocol discussion.
 
 The reference server is not production authentication infrastructure. It uses a
 single bearer token, localhost binding by default, local SQLite storage, and
@@ -18,13 +18,17 @@ basic origin checks so implementers can inspect the protocol behavior.
 
 Do not open a public issue for a suspected vulnerability.
 
-Until a final project security contact is published, report privately to:
+Use GitHub's private vulnerability reporting path for this repository:
 
 ```text
-security@example.com
+https://github.com/gitxpress/pcp/security/advisories/new
 ```
 
-Replace this placeholder before public launch. Include:
+If GitHub does not show the private reporting form, contact the maintainers
+through the repository owner profile without including exploit details in a
+public issue.
+
+Include:
 
 - affected package or component
 - steps to reproduce
@@ -41,13 +45,13 @@ In scope:
 - consent or scope bypasses in the reference server
 - audit log omission for meaningful access, denial, mutation, or export events
 - context exposure beyond the requested grant
-- unsafe defaults that affect local-first use
+- unsafe defaults that affect local development or protocol review
 - dependency vulnerabilities that affect supported commands
 
 Out of scope:
 
 - production deployment hardening not claimed by this repository
-- missing OAuth, hosted identity, or multi-tenant authorization
+- missing OAuth, hosted identity, or hosted multi-user/multi-tenant authorization
 - denial-of-service concerns for public hosting of the reference server
 - vulnerabilities that require modifying local demo seed data or source code
 

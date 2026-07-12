@@ -5,6 +5,8 @@ import {
   InitializeResultSchema
 } from "./schemas/initialize.js";
 import {
+  AuditListParamsSchema,
+  AuditListResultSchema,
   ConsentListParamsSchema,
   ConsentListResultSchema,
   ConsentRevokeParamsSchema,
@@ -17,10 +19,14 @@ import {
   ExportCreateResultSchema,
   MemoryCreateParamsSchema,
   MemoryCreateResultSchema,
+  MemoryDeleteParamsSchema,
+  MemoryDeleteResultSchema,
   MemoryProposeParamsSchema,
   MemoryProposeResultSchema
 } from "./schemas/methods.js";
 import type {
+  AuditListParams,
+  AuditListResult,
   ConsentListParams,
   ConsentListResult,
   ConsentRevokeParams,
@@ -35,6 +41,8 @@ import type {
   InitializeResult,
   MemoryCreateParams,
   MemoryCreateResult,
+  MemoryDeleteParams,
+  MemoryDeleteResult,
   MemoryProposeParams,
   MemoryProposeResult
 } from "./schemas/types.js";
@@ -74,6 +82,11 @@ export const PCP_METHOD_REGISTRY = {
     paramsSchema: MemoryCreateParamsSchema,
     resultSchema: MemoryCreateResultSchema
   },
+  [PCP_METHODS.memoryDelete]: {
+    method: PCP_METHODS.memoryDelete,
+    paramsSchema: MemoryDeleteParamsSchema,
+    resultSchema: MemoryDeleteResultSchema
+  },
   [PCP_METHODS.consentList]: {
     method: PCP_METHODS.consentList,
     paramsSchema: ConsentListParamsSchema,
@@ -83,6 +96,11 @@ export const PCP_METHOD_REGISTRY = {
     method: PCP_METHODS.consentRevoke,
     paramsSchema: ConsentRevokeParamsSchema,
     resultSchema: ConsentRevokeResultSchema
+  },
+  [PCP_METHODS.auditList]: {
+    method: PCP_METHODS.auditList,
+    paramsSchema: AuditListParamsSchema,
+    resultSchema: AuditListResultSchema
   },
   [PCP_METHODS.exportCreate]: {
     method: PCP_METHODS.exportCreate,
@@ -112,6 +130,10 @@ export type PcpMethodSpec = {
     params: MemoryCreateParams;
     result: MemoryCreateResult;
   };
+  [PCP_METHODS.memoryDelete]: {
+    params: MemoryDeleteParams;
+    result: MemoryDeleteResult;
+  };
   [PCP_METHODS.consentList]: {
     params: ConsentListParams;
     result: ConsentListResult;
@@ -119,6 +141,10 @@ export type PcpMethodSpec = {
   [PCP_METHODS.consentRevoke]: {
     params: ConsentRevokeParams;
     result: ConsentRevokeResult;
+  };
+  [PCP_METHODS.auditList]: {
+    params: AuditListParams;
+    result: AuditListResult;
   };
   [PCP_METHODS.exportCreate]: {
     params: ExportCreateParams;

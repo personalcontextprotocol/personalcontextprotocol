@@ -5,6 +5,7 @@ import {
   PCP_SERVER_INSTRUCTIONS
 } from "../constants.js";
 import { AppClientInputSchema } from "./app-client.js";
+import { PcpAuthorizationDiscoverySchema } from "./authorization-consent.js";
 
 export const ClientCapabilitiesSchema = z
   .object({
@@ -16,6 +17,7 @@ export const ClientCapabilitiesSchema = z
       })
       .optional(),
     consent: z.record(z.unknown()).optional(),
+    authorization: z.record(z.unknown()).optional(),
     export: z.record(z.unknown()).optional()
   })
   .default({});
@@ -38,7 +40,8 @@ export const ServerCapabilitiesSchema = z.object({
   }),
   audit: z.object({
     enabled: z.literal(true)
-  })
+  }),
+  authorization: PcpAuthorizationDiscoverySchema.optional()
 });
 
 export const InitializeParamsSchema = z.object({

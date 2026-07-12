@@ -2,11 +2,17 @@
 
 PCP v0.1 uses JSON-RPC 2.0 over HTTP.
 
+All protocol messages MUST be UTF-8 encoded JSON.
+
 ## Endpoint
 
 ```text
 POST /pcp
 ```
+
+The v0.1 transport profile uses one HTTP endpoint. The reference server uses
+`/pcp`. Other deployments MAY expose the PCP endpoint at a different path, but
+clients MUST be configured with the exact endpoint.
 
 ## Headers
 
@@ -15,7 +21,13 @@ Content-Type: application/json
 Authorization: Bearer <token>
 ```
 
-Browser requests that include an `Origin` header must use an allowed origin.
+Clients MUST send `Content-Type: application/json`.
+
+The v0.1 reference server requires bearer-token authentication. Other
+implementations MAY use different authentication schemes, but they MUST reject
+unauthenticated protected method calls.
+
+Browser requests that include an `Origin` header MUST use an allowed origin.
 
 ## Request Envelope
 
@@ -28,6 +40,15 @@ Browser requests that include an `Origin` header must use an allowed origin.
 }
 ```
 
+Requests MUST include:
+
+- `jsonrpc: "2.0"`
+- `id` as a string, number, or `null`
+- `method` as a non-empty string
+- `params` when required by the method
+
+PCP v0.1 does not define JSON-RPC notifications or streaming responses.
+
 ## Success Envelope
 
 ```json
@@ -37,6 +58,9 @@ Browser requests that include an `Origin` header must use an allowed origin.
   "result": {}
 }
 ```
+
+Success responses MUST include the same `id` as the request and a `result`
+field.
 
 ## Error Envelope
 
@@ -48,11 +72,15 @@ Browser requests that include an `Origin` header must use an allowed origin.
     "code": -32001,
     "message": "Consent grant is missing or revoked",
     "data": {
-      "grantId": "grant_demo_codex"
+      "grantId": "grant_demo_assistant"
     }
   }
 }
 ```
+
+Error responses MUST include the same `id` as the request when the request id
+can be read. Error responses MUST include integer `code` and string `message`
+fields.
 
 ## Standard JSON-RPC Error Codes
 
@@ -82,4 +110,6 @@ For PCP v0.1, the required value is:
 2026-06-24
 ```
 
-The server returns the negotiated protocol version and capabilities.
+The server MUST return the negotiated protocol version and capabilities. A
+conforming v0.1 server MUST reject unsupported protocol versions rather than
+silently falling back to a different protocol line.
