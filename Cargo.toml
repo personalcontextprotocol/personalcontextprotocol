@@ -1,3 +1,3 @@
 [workspace]
-members = ["sdk/rust/pcp-sdk"]
+members = ["sdk/rust"]
 resolver = "2"

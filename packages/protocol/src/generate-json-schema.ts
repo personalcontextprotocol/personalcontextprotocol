@@ -109,7 +109,7 @@ const PcpV01Schema = z.object({
 const outputPath = resolve("schemas/pcp-v0.1.schema.json");
 const contractOutputPath = resolve("schemas/pcp-v0.1.contract.json");
 const rustContractOutputPath = resolve(
-  "../../sdk/rust/pcp-sdk/src/generated_contract.rs"
+  "../../sdk/rust/src/generated_contract.rs"
 );
 const jsonSchema = zodToJsonSchema(PcpV01Schema, {
   name: "PcpV01",

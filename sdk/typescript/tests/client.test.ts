@@ -20,7 +20,7 @@ import {
 } from "../src/PcpClient.js";
 
 const testDir = dirname(fileURLToPath(import.meta.url));
-const fixtureRoot = resolve(testDir, "../../packages/protocol/conformance/v0.1");
+const fixtureRoot = resolve(testDir, "../../../packages/protocol/conformance/v0.1");
 
 function readFixture(path: string): unknown {
   return JSON.parse(readFileSync(resolve(fixtureRoot, path), "utf8"));

@@ -5,6 +5,13 @@ All notable changes to PCP will be documented in this file.
 The format is based on Keep a Changelog, and this project uses semantic version
 numbers for release tags where practical.
 
+## [Unreleased]
+
+### Changed
+
+- Consolidated the TypeScript and Rust SDK sources under `sdk/typescript` and
+  `sdk/rust` while preserving the existing package and crate names.
+
 ## [0.1.0] - 2026-06-26
 
 ### Added

@@ -1,5 +1,5 @@
 packages:
   - "packages/*"
   - "server"
-  - "client"
+  - "sdk/typescript"
   - "examples/*"

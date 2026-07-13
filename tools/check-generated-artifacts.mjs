@@ -6,7 +6,7 @@ const repoRoot = resolve(import.meta.dirname, "..");
 const generatedFiles = [
   "packages/protocol/schemas/pcp-v0.1.schema.json",
   "packages/protocol/schemas/pcp-v0.1.contract.json",
-  "sdk/rust/pcp-sdk/src/generated_contract.rs"
+  "sdk/rust/src/generated_contract.rs"
 ];
 
 const before = snapshotGeneratedFiles();
