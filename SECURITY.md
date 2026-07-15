@@ -21,7 +21,7 @@ Do not open a public issue for a suspected vulnerability.
 Use GitHub's private vulnerability reporting path for this repository:
 
 ```text
-https://github.com/gitxpress/pcp/security/advisories/new
+https://github.com/personalcontextprotocol/personalcontextprotocol/security/advisories/new
 ```
 
 If GitHub does not show the private reporting form, contact the maintainers
