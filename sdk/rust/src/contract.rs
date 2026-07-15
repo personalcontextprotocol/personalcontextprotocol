@@ -5,9 +5,9 @@ use serde::Deserialize;
 use crate::error::{PcpSdkError, Result};
 
 pub const PCP_CONTRACT_JSON: &str =
-    include_str!("../../../../packages/protocol/schemas/pcp-v0.1.contract.json");
+    include_str!("../../../packages/protocol/schemas/pcp-v0.1.contract.json");
 pub const PCP_JSON_SCHEMA: &str =
-    include_str!("../../../../packages/protocol/schemas/pcp-v0.1.schema.json");
+    include_str!("../../../packages/protocol/schemas/pcp-v0.1.schema.json");
 
 #[derive(Debug, Clone, Deserialize)]
 #[serde(rename_all = "camelCase")]

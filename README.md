@@ -17,8 +17,8 @@ This repository contains the runnable PCP v0.1 alpha reference implementation:
 
 - `packages/protocol`: TypeScript/Zod schemas, JSON-RPC types, PCP errors, generated JSON Schema, generated contract metadata, and conformance fixtures.
 - `server`: Fastify reference server configured for local development with SQLite persistence.
-- `client`: TypeScript SDK and CLI.
-- `sdk/rust/pcp-sdk`: Rust SDK crate.
+- `sdk/typescript`: TypeScript SDK and CLI.
+- `sdk/rust`: Rust SDK crate.
 - `examples`: Seed data, curl requests, a runnable demo client, and SDK examples.
 - `specs`: Versioned protocol specification for implementers.
 - `docs`: Plain-language guides for new users and developers.
@@ -254,8 +254,8 @@ cargo test --workspace
 ```text
 packages/protocol/   Protocol source of truth, generated artifacts, conformance fixtures
 server/              Reference server
-client/              TypeScript SDK and CLI
-sdk/rust/pcp-sdk/    Rust SDK crate
+sdk/typescript/      TypeScript SDK and CLI
+sdk/rust/            Rust SDK crate
 examples/            Demo client, curl scripts, seed context, SDK examples
 specs/               Versioned protocol specification
 docs/                Plain-language, developer, and SDK guides

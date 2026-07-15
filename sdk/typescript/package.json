@@ -8,9 +8,9 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/gitxpress/pcp.git",
-    "directory": "client"
+    "directory": "sdk/typescript"
   },
-  "homepage": "https://github.com/gitxpress/pcp/tree/main/client",
+  "homepage": "https://github.com/gitxpress/pcp/tree/main/sdk/typescript",
   "bugs": {
     "url": "https://github.com/gitxpress/pcp/issues"
   },

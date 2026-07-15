@@ -2,8 +2,8 @@
 
 PCP currently provides two SDK surfaces:
 
-- `client`: TypeScript SDK and CLI
-- `sdk/rust/pcp-sdk`: Rust SDK crate
+- `sdk/typescript`: TypeScript SDK and CLI
+- `sdk/rust`: Rust SDK crate
 
 Both SDKs target the official PCP v0.1 alpha contract in this repository. The
 contract is official for this repo, but PCP v0.1 remains an alpha protocol line,

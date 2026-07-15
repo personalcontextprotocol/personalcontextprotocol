@@ -1,6 +1,6 @@
 # SDK Verification Notes
 
-Last local verification: 2026-07-10.
+Last local verification: 2026-07-13.
 
 ## Passed Locally
 
@@ -19,11 +19,11 @@ The local `pnpm test` run now exercises shared PCP v0.1 conformance fixtures
 through:
 
 - `packages/protocol/tests/conformance.test.ts`
-- `client/tests/client.test.ts`
+- `sdk/typescript/tests/client.test.ts`
 - `server/tests/server.test.mjs`
 
 The Rust SDK also exercises the same fixtures in
-`sdk/rust/pcp-sdk/tests/conformance.rs`.
+`sdk/rust/tests/conformance.rs`.
 Its helper coverage verifies that every non-initialize v0.1 client method sends
 the canonical contract method name and deserializes a valid result shape.
 
@@ -43,7 +43,7 @@ the canonical contract method name and deserializes a valid result shape.
 
 - `packages/protocol/schemas/pcp-v0.1.schema.json`
 - `packages/protocol/schemas/pcp-v0.1.contract.json`
-- `sdk/rust/pcp-sdk/src/generated_contract.rs`
+- `sdk/rust/src/generated_contract.rs`
 
 The check is content-based, so it works in an uncommitted worktree and fails
 only when checked-in generated artifacts do not match the canonical sources.

@@ -26,11 +26,11 @@ server
   protocol dispatcher and handlers
   audit logging
 
-client
+sdk/typescript
   TypeScript SDK
   CLI wrapper
 
-sdk/rust/pcp-sdk
+sdk/rust
   Rust SDK crate
   async transport abstraction
   conformance tests over shared fixtures

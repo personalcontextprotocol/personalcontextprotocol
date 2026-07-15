@@ -3,7 +3,7 @@ import { join, relative, resolve } from "node:path";
 
 const repoRoot = resolve(import.meta.dirname, "..");
 const contract = readJson("packages/protocol/schemas/pcp-v0.1.contract.json");
-const rustGenerated = readText("sdk/rust/pcp-sdk/src/generated_contract.rs");
+const rustGenerated = readText("sdk/rust/src/generated_contract.rs");
 
 const generatedRustConstants = parseRustStringConstants(rustGenerated);
 const expectedRustConstants = {
@@ -69,12 +69,12 @@ if (unsupportedVersion.params.protocolVersion === contract.protocolVersion) {
   throw new Error("unsupported-version fixture must not use the current protocol version");
 }
 
-const cargoToml = readText("sdk/rust/pcp-sdk/Cargo.toml");
+const cargoToml = readText("sdk/rust/Cargo.toml");
 if (!/\npublish = false\n/.test(cargoToml)) {
   throw new Error("Rust crate must remain publish = false until release metadata is final");
 }
 
-const rustSourceFiles = listFiles(resolve(repoRoot, "sdk/rust/pcp-sdk/src")).filter(
+const rustSourceFiles = listFiles(resolve(repoRoot, "sdk/rust/src")).filter(
   (path) => path.endsWith(".rs") && !path.endsWith("generated_contract.rs")
 );
 const forbiddenRustLiterals = [

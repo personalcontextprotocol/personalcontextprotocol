@@ -17,13 +17,13 @@ use pcp_sdk::{
 use serde_json::json;
 
 const INITIALIZE_REQUEST: &str =
-    include_str!("../../../../packages/protocol/conformance/v0.1/valid/initialize.request.json");
+    include_str!("../../../packages/protocol/conformance/v0.1/valid/initialize.request.json");
 const INITIALIZE_RESPONSE: &str =
-    include_str!("../../../../packages/protocol/conformance/v0.1/valid/initialize.response.json");
+    include_str!("../../../packages/protocol/conformance/v0.1/valid/initialize.response.json");
 const SCOPE_DENIED_RESPONSE: &str =
-    include_str!("../../../../packages/protocol/conformance/v0.1/valid/scope-denied.response.json");
+    include_str!("../../../packages/protocol/conformance/v0.1/valid/scope-denied.response.json");
 const UNSUPPORTED_VERSION_REQUEST: &str = include_str!(
-    "../../../../packages/protocol/conformance/v0.1/invalid/unsupported-version.request.json"
+    "../../../packages/protocol/conformance/v0.1/invalid/unsupported-version.request.json"
 );
 
 #[derive(Debug)]

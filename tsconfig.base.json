@@ -15,7 +15,7 @@
     "baseUrl": ".",
     "paths": {
       "@pcp/protocol": ["packages/protocol/src/index.ts"],
-      "@pcp/client": ["client/src/index.ts"]
+      "@pcp/client": ["sdk/typescript/src/index.ts"]
     }
   }
 }
