@@ -1,0 +1,36 @@
+# Default ownership for the entire repository.
+* @gitxpress
+
+# GitHub configuration, automation, and this ownership policy.
+/.github/ @gitxpress
+/.github/workflows/ @gitxpress
+/.github/CODEOWNERS @gitxpress
+
+# Security policy.
+/SECURITY.md @gitxpress
+
+# Protocol specifications and schema sources/artifacts.
+/specs/ @gitxpress
+/packages/protocol/schemas/ @gitxpress
+/packages/protocol/src/schemas/ @gitxpress
+
+# TypeScript workspace packages and reference server.
+/client/ @gitxpress
+/packages/ @gitxpress
+/examples/ @gitxpress
+/server/ @gitxpress
+
+# Rust SDK.
+/sdk/rust/ @gitxpress
+
+# Documentation and technical paper.
+/README.md @gitxpress
+/docs/ @gitxpress
+/paper/ @gitxpress
+
+# Governance and release records.
+/CHANGELOG.md @gitxpress
+/CITATION.cff @gitxpress
+/CODE_OF_CONDUCT.md @gitxpress
+/CONTRIBUTING.md @gitxpress
+/LICENSE @gitxpress
